@@ -8,6 +8,7 @@ import share.king.service.interfaces.IShareSV;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/share")
 public class ShareController {
 

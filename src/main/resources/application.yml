@@ -11,4 +11,4 @@ spring:
   profiles:
     active: test
 server:
-  port: 11000
+  port: 11111
