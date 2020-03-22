@@ -1,0 +1,14 @@
+
+mybatis:
+  type-aliases-package: share.king.entity
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+logging:
+  level:
+    share.king: debug
+spring:
+  profiles:
+    active: test
+server:
+  port: 11000
