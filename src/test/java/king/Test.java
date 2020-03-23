@@ -13,8 +13,6 @@ import share.king.service.TestService;
 @RunWith(SpringRunner.class)
 public class Test {
 
-    @Autowired
-    private ShareEntityMapper shareEntityMapper;
 
     @Autowired
     private TestService testService;
@@ -25,7 +23,7 @@ public class Test {
         shareEntity.setBuyId(1);
         shareEntity.setName("正邦科技");
         shareEntity.setBuyTime("2019200");
-        shareEntityMapper.insert(shareEntity);
+        shareEntity.setBuyCount(100);
         testService.getShareEntityMapper().insert(shareEntity);
     }
 }

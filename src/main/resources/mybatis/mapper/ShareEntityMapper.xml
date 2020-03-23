@@ -18,6 +18,7 @@
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="idea" jdbcType="VARCHAR" property="idea" />
     <result column="day_trend" jdbcType="VARCHAR" property="dayTrend" />
+    <result column="buy_count" jdbcType="INTEGER" property="buyCount" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -50,7 +51,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, name, code, create_date, buy_time, buy_price, buy_id, sell_time, sell_price, 
-    open_price, close_price, high_price, low_price, remark, idea, day_trend
+    open_price, close_price, high_price, low_price, remark, idea, day_trend, buy_count
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -68,13 +69,13 @@
       buy_id, sell_time, sell_price, 
       open_price, close_price, high_price, 
       low_price, remark, idea, 
-      day_trend)
+      day_trend, buy_count)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
       #{createDate,jdbcType=VARCHAR}, #{buyTime,jdbcType=VARCHAR}, #{buyPrice,jdbcType=INTEGER}, 
       #{buyId,jdbcType=INTEGER}, #{sellTime,jdbcType=VARCHAR}, #{sellPrice,jdbcType=INTEGER}, 
       #{openPrice,jdbcType=INTEGER}, #{closePrice,jdbcType=INTEGER}, #{highPrice,jdbcType=INTEGER}, 
       #{lowPrice,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{idea,jdbcType=VARCHAR}, 
-      #{dayTrend,jdbcType=VARCHAR})
+      #{dayTrend,jdbcType=VARCHAR}, #{buyCount,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="share.king.entity.ShareEntity">
     insert into share
@@ -127,6 +128,9 @@
       <if test="dayTrend != null">
         day_trend,
       </if>
+      <if test="buyCount != null">
+        buy_count,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -176,6 +180,9 @@
       </if>
       <if test="dayTrend != null">
         #{dayTrend,jdbcType=VARCHAR},
+      </if>
+      <if test="dayTrend != null">
+        #{buyCount,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -233,6 +240,9 @@
       <if test="dayTrend != null">
         day_trend = #{dayTrend,jdbcType=VARCHAR},
       </if>
+      <if test="buyCount != null">
+        day_trend = #{buyCount,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -252,7 +262,8 @@
       low_price = #{lowPrice,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR},
       idea = #{idea,jdbcType=VARCHAR},
-      day_trend = #{dayTrend,jdbcType=VARCHAR}
+      day_trend = #{dayTrend,jdbcType=VARCHAR},
+      buy_count = #{buyCount,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 

@@ -33,6 +33,8 @@ public class ShareEntity {
 
     private String dayTrend;
 
+    private Integer buyCount;
+
     public Integer getId() {
         return id;
     }
@@ -161,6 +163,14 @@ public class ShareEntity {
         this.dayTrend = dayTrend == null ? null : dayTrend.trim();
     }
 
+    public Integer getBuyCount() {
+        return buyCount;
+    }
+
+    public void setBuyCount(int buyCount) {
+        this.buyCount = buyCount;
+    }
+
     @Override
     public String toString() {
         return "ShareEntity{" +
@@ -180,6 +190,7 @@ public class ShareEntity {
                 ", remark='" + remark + '\'' +
                 ", idea='" + idea + '\'' +
                 ", dayTrend='" + dayTrend + '\'' +
+                ", buyCount='" + buyCount + '\'' +
                 '}';
     }
 }
