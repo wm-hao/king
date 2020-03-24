@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import share.king.entity.ShareEntity;
 import share.king.service.interfaces.IShareSV;
+import share.king.util.Common;
 
 import java.util.List;
 
@@ -20,19 +21,12 @@ public class ShareController {
         return shareSV.selectAll();
     }
 
-    @PostMapping("/insert")
-    public String insert(ShareEntity shareEntity) {
-        if (shareSV.insert(shareEntity) == 1) {
-            return "插入成功";
+    @PostMapping("insert")
+    public String insert(@RequestBody ShareEntity shareEntity) {
+        if (shareSV.insert(shareEntity) == Common.StatusCode.SUCCESS.getCode()) {
+            return Common.StatusCode.SUCCESS.getDesc();
         }
-        return "插入失败";
+        return Common.StatusCode.FAIL.getDesc();
     }
 
-    @PostMapping(value = "insert/json", consumes = "application/json")
-    public String insertJson(@RequestBody ShareEntity shareEntity) {
-        if (shareSV.insert(shareEntity) == 1) {
-            return "插入成功";
-        }
-        return "插入失败";
-    }
 }

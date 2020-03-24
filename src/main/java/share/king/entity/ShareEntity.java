@@ -1,5 +1,7 @@
 package share.king.entity;
 
+import java.util.List;
+
 public class ShareEntity {
     private Integer id;
 
@@ -167,30 +169,9 @@ public class ShareEntity {
         return buyCount;
     }
 
-    public void setBuyCount(int buyCount) {
+    public void setBuyCount(Integer buyCount) {
         this.buyCount = buyCount;
     }
 
-    @Override
-    public String toString() {
-        return "ShareEntity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", code='" + code + '\'' +
-                ", createDate='" + createDate + '\'' +
-                ", buyTime='" + buyTime + '\'' +
-                ", buyPrice=" + buyPrice +
-                ", buyId=" + buyId +
-                ", sellTime='" + sellTime + '\'' +
-                ", sellPrice=" + sellPrice +
-                ", openPrice=" + openPrice +
-                ", closePrice=" + closePrice +
-                ", highPrice=" + highPrice +
-                ", lowPrice=" + lowPrice +
-                ", remark='" + remark + '\'' +
-                ", idea='" + idea + '\'' +
-                ", dayTrend='" + dayTrend + '\'' +
-                ", buyCount='" + buyCount + '\'' +
-                '}';
-    }
+
 }
