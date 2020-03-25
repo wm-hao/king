@@ -15,4 +15,8 @@ public interface IUserSV {
     int updateByPrimaryKeySelective(UserEntity record);
 
     int updateByPrimaryKey(UserEntity record);
+
+    UserEntity findByUserName(String userName);
+
+    boolean validateUserInfo(UserEntity userEntity);
 }

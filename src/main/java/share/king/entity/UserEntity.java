@@ -82,4 +82,26 @@ public class UserEntity {
     public void setState(Integer state) {
         this.state = state;
     }
+
+    public UserEntity() {
+    }
+
+    public UserEntity(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", createDate=" + createDate +
+                ", optDate=" + optDate +
+                ", expireDate=" + expireDate +
+                ", validDate=" + validDate +
+                ", state=" + state +
+                '}';
+    }
 }

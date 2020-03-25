@@ -21,4 +21,7 @@ public class Common {
             return code;
         }
     }
+
+    public static final int USER_STATE_U = 0;
+    public static final int USER_STATE_E = 1;
 }

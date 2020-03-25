@@ -1,12 +1,11 @@
 package share.king.controller;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import share.king.exception.TestException;
 
 @Controller
 @CrossOrigin
@@ -20,7 +19,8 @@ public class HomeController {
 
 
     @GetMapping("/error405")
-    public ResponseEntity http405() {
-        return new ResponseEntity(HttpStatus.METHOD_NOT_ALLOWED);
+    @ResponseBody
+    public String http405() {
+        throw new TestException();
     }
 }
