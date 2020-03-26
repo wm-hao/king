@@ -5,11 +5,11 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="code" jdbcType="VARCHAR" property="code" />
-    <result column="create_date" jdbcType="VARCHAR" property="createDate" />
-    <result column="buy_time" jdbcType="VARCHAR" property="buyTime" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="buy_time" jdbcType="TIMESTAMP" property="buyTime" />
     <result column="buy_price" jdbcType="INTEGER" property="buyPrice" />
     <result column="buy_id" jdbcType="INTEGER" property="buyId" />
-    <result column="sell_time" jdbcType="VARCHAR" property="sellTime" />
+    <result column="sell_time" jdbcType="TIMESTAMP" property="sellTime" />
     <result column="sell_price" jdbcType="INTEGER" property="sellPrice" />
     <result column="open_price" jdbcType="INTEGER" property="openPrice" />
     <result column="close_price" jdbcType="INTEGER" property="closePrice" />
@@ -42,8 +42,8 @@
       low_price, remark, idea, 
       day_trend, buy_count)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
-      #{createDate,jdbcType=VARCHAR}, #{buyTime,jdbcType=VARCHAR}, #{buyPrice,jdbcType=INTEGER}, 
-      #{buyId,jdbcType=INTEGER}, #{sellTime,jdbcType=VARCHAR}, #{sellPrice,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{buyTime,jdbcType=TIMESTAMP}, #{buyPrice,jdbcType=INTEGER}, 
+      #{buyId,jdbcType=INTEGER}, #{sellTime,jdbcType=TIMESTAMP}, #{sellPrice,jdbcType=INTEGER}, 
       #{openPrice,jdbcType=INTEGER}, #{closePrice,jdbcType=INTEGER}, #{highPrice,jdbcType=INTEGER}, 
       #{lowPrice,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{idea,jdbcType=VARCHAR}, 
       #{dayTrend,jdbcType=VARCHAR}, #{buyCount,jdbcType=INTEGER})
@@ -114,10 +114,10 @@
         #{code,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null">
-        #{createDate,jdbcType=VARCHAR},
+        #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="buyTime != null">
-        #{buyTime,jdbcType=VARCHAR},
+        #{buyTime,jdbcType=TIMESTAMP},
       </if>
       <if test="buyPrice != null">
         #{buyPrice,jdbcType=INTEGER},
@@ -126,7 +126,7 @@
         #{buyId,jdbcType=INTEGER},
       </if>
       <if test="sellTime != null">
-        #{sellTime,jdbcType=VARCHAR},
+        #{sellTime,jdbcType=TIMESTAMP},
       </if>
       <if test="sellPrice != null">
         #{sellPrice,jdbcType=INTEGER},
@@ -167,10 +167,10 @@
         code = #{code,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null">
-        create_date = #{createDate,jdbcType=VARCHAR},
+        create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="buyTime != null">
-        buy_time = #{buyTime,jdbcType=VARCHAR},
+        buy_time = #{buyTime,jdbcType=TIMESTAMP},
       </if>
       <if test="buyPrice != null">
         buy_price = #{buyPrice,jdbcType=INTEGER},
@@ -179,7 +179,7 @@
         buy_id = #{buyId,jdbcType=INTEGER},
       </if>
       <if test="sellTime != null">
-        sell_time = #{sellTime,jdbcType=VARCHAR},
+        sell_time = #{sellTime,jdbcType=TIMESTAMP},
       </if>
       <if test="sellPrice != null">
         sell_price = #{sellPrice,jdbcType=INTEGER},
@@ -215,11 +215,11 @@
     update share
     set name = #{name,jdbcType=VARCHAR},
       code = #{code,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=VARCHAR},
-      buy_time = #{buyTime,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      buy_time = #{buyTime,jdbcType=TIMESTAMP},
       buy_price = #{buyPrice,jdbcType=INTEGER},
       buy_id = #{buyId,jdbcType=INTEGER},
-      sell_time = #{sellTime,jdbcType=VARCHAR},
+      sell_time = #{sellTime,jdbcType=TIMESTAMP},
       sell_price = #{sellPrice,jdbcType=INTEGER},
       open_price = #{openPrice,jdbcType=INTEGER},
       close_price = #{closePrice,jdbcType=INTEGER},

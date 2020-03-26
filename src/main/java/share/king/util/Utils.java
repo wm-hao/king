@@ -1,22 +1,18 @@
 package share.king.util;
 
 
-import java.security.MessageDigest;
-import java.util.Base64;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class Utils {
 
-    public static String getMD5(String plainText) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update(plainText.getBytes());
-            byte[] digest = md.digest();
-            return new String(Base64.getEncoder().encode(digest));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+    private static final String SALT = "abc123";
 
+    public static String getMD5(String plainText) {
+        if (StringUtils.isNoneBlank(plainText)) {
+            return DigestUtils.md5Hex(SALT + plainText);
+        }
+        return null;
+    }
 
 }

@@ -1,6 +1,8 @@
 package share.king.entity;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
 
 public class ShareEntity {
     private Integer id;
@@ -9,15 +11,18 @@ public class ShareEntity {
 
     private String code;
 
-    private String createDate;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createDate;
 
-    private String buyTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date buyTime;
 
     private Integer buyPrice;
 
     private Integer buyId;
 
-    private String sellTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date sellTime;
 
     private Integer sellPrice;
 
@@ -61,20 +66,20 @@ public class ShareEntity {
         this.code = code == null ? null : code.trim();
     }
 
-    public String getCreateDate() {
+    public Date getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate == null ? null : createDate.trim();
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
-    public String getBuyTime() {
+    public Date getBuyTime() {
         return buyTime;
     }
 
-    public void setBuyTime(String buyTime) {
-        this.buyTime = buyTime == null ? null : buyTime.trim();
+    public void setBuyTime(Date buyTime) {
+        this.buyTime = buyTime;
     }
 
     public Integer getBuyPrice() {
@@ -93,12 +98,12 @@ public class ShareEntity {
         this.buyId = buyId;
     }
 
-    public String getSellTime() {
+    public Date getSellTime() {
         return sellTime;
     }
 
-    public void setSellTime(String sellTime) {
-        this.sellTime = sellTime == null ? null : sellTime.trim();
+    public void setSellTime(Date sellTime) {
+        this.sellTime = sellTime;
     }
 
     public Integer getSellPrice() {
@@ -173,5 +178,26 @@ public class ShareEntity {
         this.buyCount = buyCount;
     }
 
-
+    @Override
+    public String toString() {
+        return "ShareEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", createDate=" + createDate +
+                ", buyTime=" + buyTime +
+                ", buyPrice=" + buyPrice +
+                ", buyId=" + buyId +
+                ", sellTime=" + sellTime +
+                ", sellPrice=" + sellPrice +
+                ", openPrice=" + openPrice +
+                ", closePrice=" + closePrice +
+                ", highPrice=" + highPrice +
+                ", lowPrice=" + lowPrice +
+                ", remark='" + remark + '\'' +
+                ", idea='" + idea + '\'' +
+                ", dayTrend='" + dayTrend + '\'' +
+                ", buyCount=" + buyCount +
+                '}';
+    }
 }

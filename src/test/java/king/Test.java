@@ -1,5 +1,7 @@
 package king;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,9 +11,8 @@ import share.king.entity.ShareEntity;
 import share.king.entity.UserEntity;
 import share.king.service.interfaces.IShareSV;
 import share.king.service.interfaces.IUserSV;
-import share.king.util.Common;
-import share.king.util.TimeUtil;
-import share.king.util.Utils;
+import share.king.util.RedisUtil;
+import share.king.util.TokenUtil;
 
 import java.util.Date;
 import java.util.List;
@@ -20,6 +21,10 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 public class Test {
 
+    private static transient Log log = LogFactory.getLog(Test.class);
+
+    @Autowired
+    private RedisUtil redisUtil;
 
     @Autowired
     private IShareSV shareSV;
@@ -31,7 +36,7 @@ public class Test {
         ShareEntity shareEntity = new ShareEntity();
         shareEntity.setBuyId(1);
         shareEntity.setName("太白金星");
-        shareEntity.setBuyTime("20192002");
+        shareEntity.setBuyTime(new Date());
         shareEntity.setBuyCount(100);
         shareSV.insert(shareEntity);
     }
@@ -46,7 +51,7 @@ public class Test {
 
     @org.junit.Test
     public void testExist() throws Exception {
-        UserEntity userEntity = userSV.findByUserName("zhuhh");
+        UserEntity userEntity = userSV.findByUserName("newUser");
         System.out.println(userEntity);
         userEntity = userSV.findByUserName("aca");
         System.out.println(userEntity);
@@ -54,7 +59,7 @@ public class Test {
 
     @org.junit.Test
     public void testInsertUser() {
-        UserEntity userEntity = new UserEntity("zhuhh", "U2FsdGVkX18caxDKk6codyUdHXKFZOPL1TyOEf4n2Y8=");
+        UserEntity userEntity = new UserEntity("newUser", "ec6ef230f1828039ee794566b9c58adc");
         userSV.insert(userEntity);
         System.out.println("密码:" + userEntity.getPassword());
     }
@@ -62,11 +67,24 @@ public class Test {
     @org.junit.Test
     public void testValidate() {
         UserEntity userEntity = new UserEntity();
-        userEntity.setPassword(Utils.getMD5("U2FsdGVkX18caxDKk6codyUdHXKFZOPL1TyOEf4n2Y8="));
-        userEntity.setUserName("zhuhh");
+        userEntity.setPassword("ec6ef230f1828039ee794566b9c58adc");
+        userEntity.setUserName("newUser");
         System.out.println("验证结果" + userSV.validateUserInfo(userEntity));
-//        userEntity.setPassword("p2");
-//        System.out.println("验证结果" + userSV.validateUserInfo(userEntity));
+    }
+
+    @org.junit.Test
+    public void testToken() {
+        UserEntity userEntity = new UserEntity();
+        userEntity = userSV.findByUserName("zhuhh");
+        String token = TokenUtil.createJWT(-1, userEntity);
+        log.error("token=" + token);
+        log.error("从token获取用户名:" + TokenUtil.getUserName(token));
+        log.error("验证:" + TokenUtil.verify(token, userEntity));
+    }
+
+    @org.junit.Test
+    public void testRedis() {
+        log.error(redisUtil.get("key") == null);
     }
 
 }

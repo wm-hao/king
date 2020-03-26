@@ -1,5 +1,6 @@
 package share.king.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import share.king.dto.Response;
 import share.king.entity.UserEntity;
 import share.king.service.interfaces.IUserSV;
-import share.king.util.Common;
-import share.king.util.GateWayUtil;
+import share.king.util.*;
 
 @RestController
 @CrossOrigin
@@ -19,6 +19,9 @@ public class UserController {
 
     @Autowired
     IUserSV userSV;
+
+    @Autowired
+    RedisUtil redisUtil;
 
     @PostMapping(value = "insert")
     public String insert(@RequestBody UserEntity userEntity) {
@@ -31,8 +34,15 @@ public class UserController {
     @PostMapping("validate")
     public Response validate(@RequestBody UserEntity userEntity) {
         log.error("用户信息验证请求参数:" + userEntity);
-        if (userSV.validateUserInfo(userEntity)) {
-            return GateWayUtil.returnSuccessResponse("token66");
+        if (userEntity != null && StringUtils.isNotBlank(userEntity.getUserName()) && StringUtils.isNoneBlank(userEntity.getUserName())) {
+            String password = userEntity.getPassword();
+            String cipherText = Utils.getMD5(password);
+            UserEntity user = userSV.findByUserName(userEntity.getUserName());
+            if (user != null && StringUtils.equals(cipherText, user.getPassword())) {
+                String token = TokenUtil.createJWT(-1, user);
+                redisUtil.set(user.getUserName(), token, 60 * 60);
+                return GateWayUtil.returnSuccessResponse(token);
+            }
         }
         return GateWayUtil.returnFailResponse("用户验证失败");
     }

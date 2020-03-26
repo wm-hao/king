@@ -6,6 +6,7 @@ import share.king.dao.ShareEntityMapper;
 import share.king.entity.ShareEntity;
 import share.king.service.interfaces.IShareSV;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,6 +22,7 @@ public class ShareSVImpl implements IShareSV {
 
     @Override
     public int insert(ShareEntity record) {
+        record.setCreateDate(new Date());
         return shareEntityMapper.insert(record);
     }
 

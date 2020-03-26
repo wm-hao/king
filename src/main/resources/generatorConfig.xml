@@ -42,7 +42,7 @@
                selectByExampleQueryId="false">
 
         </table>
-        <table tableName="user"
+      <!--  <table tableName="user"
                domainObjectName="UserEntity"
                enableCountByExample="false"
                enableUpdateByExample="false"
@@ -51,6 +51,6 @@
                selectByExampleQueryId="false">
 
         </table>
-
+-->
     </context>
 </generatorConfiguration>

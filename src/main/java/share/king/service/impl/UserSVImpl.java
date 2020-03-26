@@ -62,7 +62,7 @@ public class UserSVImpl implements IUserSV {
 
     @Override
     public boolean validateUserInfo(UserEntity userEntity) {
-        if (userEntity != null && StringUtils.isBlank(userEntity.getUserName()) && StringUtils.isBlank(userEntity.getUserName())) {
+        if (userEntity != null && StringUtils.isNotBlank(userEntity.getUserName()) && StringUtils.isNoneBlank(userEntity.getUserName())) {
             String password = userEntity.getPassword();
             String cipherText = Utils.getMD5(password);
             UserEntity user = findByUserName(userEntity.getUserName());
