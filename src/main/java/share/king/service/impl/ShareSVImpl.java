@@ -1,5 +1,7 @@
 package share.king.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import share.king.dao.ShareEntityMapper;
@@ -49,5 +51,12 @@ public class ShareSVImpl implements IShareSV {
     @Override
     public List<ShareEntity> selectAll() {
         return shareEntityMapper.selectAll();
+    }
+
+    @Override
+    public PageInfo<ShareEntity> selectByPage(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<ShareEntity> shareEntities = shareEntityMapper.selectAll();
+        return new PageInfo<>(shareEntities);
     }
 }

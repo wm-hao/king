@@ -87,4 +87,9 @@ public class Test {
         log.error(redisUtil.get("key") == null);
     }
 
+    @org.junit.Test
+    public void testPage() {
+        log.error(shareSV.selectByPage(0, 1).getList().size());
+    }
+
 }

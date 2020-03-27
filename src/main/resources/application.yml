@@ -4,6 +4,8 @@ mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
+    interceptors:
+
 logging:
   level:
     share.king: debug
@@ -12,3 +14,8 @@ spring:
     active: test
 server:
   port: 11111
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql

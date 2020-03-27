@@ -1,5 +1,6 @@
 package share.king.service.interfaces;
 
+import com.github.pagehelper.PageInfo;
 import share.king.entity.ShareEntity;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface IShareSV {
     int updateByPrimaryKey(ShareEntity record);
 
     List<ShareEntity> selectAll();
+
+    PageInfo<ShareEntity> selectByPage(int pageNum, int pageSize);
 }
