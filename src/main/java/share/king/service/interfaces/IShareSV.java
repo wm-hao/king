@@ -22,4 +22,6 @@ public interface IShareSV {
     List<ShareEntity> selectAll();
 
     PageInfo<ShareEntity> selectByPage(int pageNum, int pageSize);
+
+    PageInfo<ShareEntity> selectByDateType(String startDate, String endDate, String opType);
 }

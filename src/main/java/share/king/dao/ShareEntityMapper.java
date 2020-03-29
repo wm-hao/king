@@ -1,9 +1,10 @@
 package share.king.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import share.king.entity.ShareEntity;
-
-import java.util.List;
+import share.king.entity.ShareEntityExample;
 
 @Mapper
 public interface ShareEntityMapper {
@@ -12,6 +13,8 @@ public interface ShareEntityMapper {
     int insert(ShareEntity record);
 
     int insertSelective(ShareEntity record);
+
+    List<ShareEntity> selectByExample(ShareEntityExample example);
 
     ShareEntity selectByPrimaryKey(Integer id);
 

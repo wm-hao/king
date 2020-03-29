@@ -1,4 +1,3 @@
-
 mybatis:
   type-aliases-package: share.king.entity
   mapper-locations: classpath:mybatis/mapper/*.xml
@@ -12,6 +11,12 @@ logging:
 spring:
   profiles:
     active: test
+  mail:
+    host: smtp.163.com
+    port: 25
+    username: XXXX@XX.com
+    password: XXX
+    from: XXXX@XX.com
 server:
   port: 11111
 pagehelper:

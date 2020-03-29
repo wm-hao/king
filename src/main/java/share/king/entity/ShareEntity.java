@@ -1,7 +1,5 @@
 package share.king.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Date;
 
 public class ShareEntity {
@@ -11,17 +9,14 @@ public class ShareEntity {
 
     private String code;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createDate;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date buyTime;
 
     private Integer buyPrice;
 
     private Integer buyId;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date sellTime;
 
     private Integer sellPrice;
@@ -41,6 +36,8 @@ public class ShareEntity {
     private String dayTrend;
 
     private Integer buyCount;
+
+    private Integer userId;
 
     public Integer getId() {
         return id;
@@ -178,26 +175,11 @@ public class ShareEntity {
         this.buyCount = buyCount;
     }
 
-    @Override
-    public String toString() {
-        return "ShareEntity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", code='" + code + '\'' +
-                ", createDate=" + createDate +
-                ", buyTime=" + buyTime +
-                ", buyPrice=" + buyPrice +
-                ", buyId=" + buyId +
-                ", sellTime=" + sellTime +
-                ", sellPrice=" + sellPrice +
-                ", openPrice=" + openPrice +
-                ", closePrice=" + closePrice +
-                ", highPrice=" + highPrice +
-                ", lowPrice=" + lowPrice +
-                ", remark='" + remark + '\'' +
-                ", idea='" + idea + '\'' +
-                ", dayTrend='" + dayTrend + '\'' +
-                ", buyCount=" + buyCount +
-                '}';
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }

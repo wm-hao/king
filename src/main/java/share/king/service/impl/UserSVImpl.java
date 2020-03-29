@@ -37,6 +37,7 @@ public class UserSVImpl implements IUserSV {
 
     @Override
     public int insertSelective(UserEntity record) {
+        record.setPassword(Utils.getMD5(record.getPassword()));
         return userEntityMapper.insertSelective(record);
     }
 

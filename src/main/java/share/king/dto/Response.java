@@ -1,12 +1,16 @@
 package share.king.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Response implements Serializable {
 
     private String code;
-    private String result;
+    private String message;
     private String desc;
+    private long total;
+    private List rows = new ArrayList();
 
     public String getCode() {
         return code;
@@ -16,12 +20,12 @@ public class Response implements Serializable {
         this.code = code;
     }
 
-    public String getResult() {
-        return result;
+    public String getMessage() {
+        return message;
     }
 
-    public void setResult(String result) {
-        this.result = result;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public String getDesc() {
@@ -32,9 +36,25 @@ public class Response implements Serializable {
         this.desc = desc;
     }
 
-    public Response(String code, String result, String desc) {
+    public long getTotal() {
+        return total;
+    }
+
+    public void setTotal(long total) {
+        this.total = total;
+    }
+
+    public List getRows() {
+        return rows;
+    }
+
+    public void setRows(List rows) {
+        this.rows = rows;
+    }
+
+    public Response(String code, String message, String desc) {
         this.code = code;
-        this.result = result;
+        this.message = message;
         this.desc = desc;
     }
 

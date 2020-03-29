@@ -1,5 +1,6 @@
 package king;
 
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.runner.RunWith;
@@ -9,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import share.king.MainApplication;
 import share.king.entity.ShareEntity;
 import share.king.entity.UserEntity;
+import share.king.service.interfaces.IMailSV;
 import share.king.service.interfaces.IShareSV;
 import share.king.service.interfaces.IUserSV;
 import share.king.util.RedisUtil;
@@ -30,6 +32,8 @@ public class Test {
     private IShareSV shareSV;
     @Autowired
     private IUserSV userSV;
+    @Autowired
+    IMailSV mailSV;
 
     @org.junit.Test
     public void test() throws Exception {
@@ -46,6 +50,17 @@ public class Test {
         List<ShareEntity> list = shareSV.selectAll();
         for (ShareEntity shareEntity : list) {
             System.out.println(shareEntity);
+        }
+    }
+
+    @org.junit.Test
+    public void saveShare() throws Exception {
+        List<ShareEntity> list = shareSV.selectAll();
+        ShareEntity shareEntity = list.get(0);
+        for (int i = 0; i < 12; i++) {
+            shareEntity.setId(null);
+            shareEntity.setName(shareEntity.getName() + i);
+            shareSV.insert(shareEntity);
         }
     }
 
@@ -89,7 +104,10 @@ public class Test {
 
     @org.junit.Test
     public void testPage() {
-        log.error(shareSV.selectByPage(0, 1).getList().size());
+        PageInfo<ShareEntity> pageInfo = shareSV.selectByPage(0, 1);
+        log.error(pageInfo.getList().size());
+        log.error(pageInfo.getTotal());
     }
+
 
 }

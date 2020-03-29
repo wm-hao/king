@@ -17,7 +17,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new HeaderInterceptor()).addPathPatterns("/**");
         registry.addInterceptor(tokenInterceptor).addPathPatterns("/**")
-                .excludePathPatterns("/user/validate", "/user/exists");
+                .excludePathPatterns("/user/**");
 
     }
 }

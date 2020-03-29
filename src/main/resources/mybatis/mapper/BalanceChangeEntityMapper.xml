@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="share.king.dao.BalanceChangeEntityMapper">
+  <resultMap id="BaseResultMap" type="share.king.entity.BalanceChangeEntity">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="balance_id" jdbcType="INTEGER" property="balanceId" />
+    <result column="change_type" jdbcType="CHAR" property="changeType" />
+    <result column="balance_Before" jdbcType="INTEGER" property="balanceBefore" />
+    <result column="balance" jdbcType="INTEGER" property="balance" />
+    <result column="change_amount" jdbcType="INTEGER" property="changeAmount" />
+    <result column="origin_id" jdbcType="INTEGER" property="originId" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="opt_date" jdbcType="TIMESTAMP" property="optDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, balance_id, change_type, balance_Before, balance, change_amount, origin_id, create_date, 
+    remark, opt_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from balance_change
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from balance_change
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="share.king.entity.BalanceChangeEntity">
+    insert into balance_change (id, balance_id, change_type, 
+      balance_Before, balance, change_amount, 
+      origin_id, create_date, remark, 
+      opt_date)
+    values (#{id,jdbcType=INTEGER}, #{balanceId,jdbcType=INTEGER}, #{changeType,jdbcType=CHAR}, 
+      #{balanceBefore,jdbcType=INTEGER}, #{balance,jdbcType=INTEGER}, #{changeAmount,jdbcType=INTEGER}, 
+      #{originId,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
+      #{optDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="share.king.entity.BalanceChangeEntity">
+    insert into balance_change
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="balanceId != null">
+        balance_id,
+      </if>
+      <if test="changeType != null">
+        change_type,
+      </if>
+      <if test="balanceBefore != null">
+        balance_Before,
+      </if>
+      <if test="balance != null">
+        balance,
+      </if>
+      <if test="changeAmount != null">
+        change_amount,
+      </if>
+      <if test="originId != null">
+        origin_id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="optDate != null">
+        opt_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="balanceId != null">
+        #{balanceId,jdbcType=INTEGER},
+      </if>
+      <if test="changeType != null">
+        #{changeType,jdbcType=CHAR},
+      </if>
+      <if test="balanceBefore != null">
+        #{balanceBefore,jdbcType=INTEGER},
+      </if>
+      <if test="balance != null">
+        #{balance,jdbcType=INTEGER},
+      </if>
+      <if test="changeAmount != null">
+        #{changeAmount,jdbcType=INTEGER},
+      </if>
+      <if test="originId != null">
+        #{originId,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="optDate != null">
+        #{optDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="share.king.entity.BalanceChangeEntity">
+    update balance_change
+    <set>
+      <if test="balanceId != null">
+        balance_id = #{balanceId,jdbcType=INTEGER},
+      </if>
+      <if test="changeType != null">
+        change_type = #{changeType,jdbcType=CHAR},
+      </if>
+      <if test="balanceBefore != null">
+        balance_Before = #{balanceBefore,jdbcType=INTEGER},
+      </if>
+      <if test="balance != null">
+        balance = #{balance,jdbcType=INTEGER},
+      </if>
+      <if test="changeAmount != null">
+        change_amount = #{changeAmount,jdbcType=INTEGER},
+      </if>
+      <if test="originId != null">
+        origin_id = #{originId,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="optDate != null">
+        opt_date = #{optDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="share.king.entity.BalanceChangeEntity">
+    update balance_change
+    set balance_id = #{balanceId,jdbcType=INTEGER},
+      change_type = #{changeType,jdbcType=CHAR},
+      balance_Before = #{balanceBefore,jdbcType=INTEGER},
+      balance = #{balance,jdbcType=INTEGER},
+      change_amount = #{changeAmount,jdbcType=INTEGER},
+      origin_id = #{originId,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      opt_date = #{optDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

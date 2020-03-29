@@ -19,6 +19,23 @@ public class UserEntity {
 
     private Integer state;
 
+    private String email;
+
+    private String address;
+
+    private String zip;
+
+    private String billId;
+
+
+    public UserEntity() {
+    }
+
+    public UserEntity(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -83,25 +100,35 @@ public class UserEntity {
         this.state = state;
     }
 
-    public UserEntity() {
+    public String getEmail() {
+        return email;
     }
 
-    public UserEntity(String userName, String password) {
-        this.userName = userName;
-        this.password = password;
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
     }
 
-    @Override
-    public String toString() {
-        return "UserEntity{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", createDate=" + createDate +
-                ", optDate=" + optDate +
-                ", expireDate=" + expireDate +
-                ", validDate=" + validDate +
-                ", state=" + state +
-                '}';
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip == null ? null : zip.trim();
+    }
+
+    public String getBillId() {
+        return billId;
+    }
+
+    public void setBillId(String billId) {
+        this.billId = billId == null ? null : billId.trim();
     }
 }

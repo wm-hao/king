@@ -59,4 +59,9 @@ public class ShareSVImpl implements IShareSV {
         List<ShareEntity> shareEntities = shareEntityMapper.selectAll();
         return new PageInfo<>(shareEntities);
     }
+
+    @Override
+    public PageInfo<ShareEntity> selectByDateType(String startDate, String endDate, String opType) {
+        return null;
+    }
 }
