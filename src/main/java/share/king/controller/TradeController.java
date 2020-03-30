@@ -6,8 +6,8 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import share.king.dto.Response;
-import share.king.entity.ShareEntity;
-import share.king.service.interfaces.IShareSV;
+import share.king.entity.TradeRecordEntity;
+import share.king.service.interfaces.ITradeRecordSV;
 import share.king.util.Common;
 import share.king.util.GateWayUtil;
 
@@ -16,24 +16,24 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping("/share")
-public class ShareController {
-    private static transient Log log = LogFactory.getLog(ShareController.class);
+public class TradeController {
+    private static transient Log log = LogFactory.getLog(TradeController.class);
     private static final int PAGE_SIZE_MAX = 50;
     private static final int PAGE_SIZE_MIN = 1;
     private static final int PAGE_NUM_MIN = 0;
 
     @Autowired
-    private IShareSV shareSV;
+    private ITradeRecordSV tradeRecordSV;
 
     @GetMapping("list")
-    public List<ShareEntity> list() {
-        return shareSV.selectAll();
+    public List<TradeRecordEntity> list() {
+        return tradeRecordSV.selectAll();
     }
 
     @PostMapping("insert")
-    public Response insert(@RequestBody ShareEntity shareEntity) {
-        log.info("插入SHARE:" + shareEntity);
-        if (shareSV.insert(shareEntity) == Common.StatusCode.SUCCESS.getCode()) {
+    public Response insert(@RequestBody TradeRecordEntity TradeRecordEntity) {
+        log.info("插入SHARE:" + TradeRecordEntity);
+        if (tradeRecordSV.insert(TradeRecordEntity) == Common.StatusCode.SUCCESS.getCode()) {
             return GateWayUtil.returnSuccessResponse("保存成功");
         }
         return GateWayUtil.returnFailResponse("保存失败");
@@ -50,7 +50,7 @@ public class ShareController {
         if (pageSize > PAGE_SIZE_MAX) {
             pageSize = PAGE_SIZE_MAX;
         }
-        PageInfo<ShareEntity> pageInfo = shareSV.selectByPage(pageNum * pageSize, pageSize);
+        PageInfo<TradeRecordEntity> pageInfo = tradeRecordSV.selectByPage(pageNum * pageSize, pageSize);
         Response response = GateWayUtil.returnSuccessResponse("查询成功");
         response.setRows(pageInfo.getList());
         response.setTotal(pageInfo.getTotal());

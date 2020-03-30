@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import share.king.MainApplication;
-import share.king.entity.ShareEntity;
+import share.king.entity.TradeRecordEntity;
 import share.king.entity.UserEntity;
 import share.king.service.interfaces.IMailSV;
-import share.king.service.interfaces.IShareSV;
+import share.king.service.interfaces.ITradeRecordSV;
 import share.king.service.interfaces.IUserSV;
 import share.king.util.RedisUtil;
 import share.king.util.TokenUtil;
@@ -29,7 +29,7 @@ public class Test {
     private RedisUtil redisUtil;
 
     @Autowired
-    private IShareSV shareSV;
+    private ITradeRecordSV tradeRecordSV;
     @Autowired
     private IUserSV userSV;
     @Autowired
@@ -37,30 +37,29 @@ public class Test {
 
     @org.junit.Test
     public void test() throws Exception {
-        ShareEntity shareEntity = new ShareEntity();
-        shareEntity.setBuyId(1);
-        shareEntity.setName("太白金星");
-        shareEntity.setBuyTime(new Date());
-        shareEntity.setBuyCount(100);
-        shareSV.insert(shareEntity);
+        TradeRecordEntity TradeRecordEntity = new TradeRecordEntity();
+        TradeRecordEntity.setName("太白金星");
+        TradeRecordEntity.setBuyTime(new Date());
+        TradeRecordEntity.setBuyCount(100);
+        tradeRecordSV.insert(TradeRecordEntity);
     }
 
     @org.junit.Test
     public void qry() throws Exception {
-        List<ShareEntity> list = shareSV.selectAll();
-        for (ShareEntity shareEntity : list) {
-            System.out.println(shareEntity);
+        List<TradeRecordEntity> list = tradeRecordSV.selectAll();
+        for (TradeRecordEntity TradeRecordEntity : list) {
+            System.out.println(TradeRecordEntity);
         }
     }
 
     @org.junit.Test
     public void saveShare() throws Exception {
-        List<ShareEntity> list = shareSV.selectAll();
-        ShareEntity shareEntity = list.get(0);
+        List<TradeRecordEntity> list = tradeRecordSV.selectAll();
+        TradeRecordEntity TradeRecordEntity = list.get(0);
         for (int i = 0; i < 12; i++) {
-            shareEntity.setId(null);
-            shareEntity.setName(shareEntity.getName() + i);
-            shareSV.insert(shareEntity);
+            TradeRecordEntity.setId(null);
+            TradeRecordEntity.setName(TradeRecordEntity.getName() + i);
+            tradeRecordSV.insert(TradeRecordEntity);
         }
     }
 
@@ -74,7 +73,8 @@ public class Test {
 
     @org.junit.Test
     public void testInsertUser() {
-        UserEntity userEntity = new UserEntity("newUser", "ec6ef230f1828039ee794566b9c58adc");
+        UserEntity userEntity = new UserEntity("admin", "1c63129ae9db9c60c3e8aa94d3e00495");
+        userEntity.setEmail("448826602@qq.com");
         userSV.insert(userEntity);
         System.out.println("密码:" + userEntity.getPassword());
     }
@@ -104,7 +104,7 @@ public class Test {
 
     @org.junit.Test
     public void testPage() {
-        PageInfo<ShareEntity> pageInfo = shareSV.selectByPage(0, 1);
+        PageInfo<TradeRecordEntity> pageInfo = tradeRecordSV.selectByPage(0, 1);
         log.error(pageInfo.getList().size());
         log.error(pageInfo.getTotal());
     }

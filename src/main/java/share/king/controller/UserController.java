@@ -28,11 +28,11 @@ public class UserController {
     IMailSV mailSV;
 
     @PostMapping(value = "insert")
-    public String insert(@RequestBody UserEntity userEntity) {
+    public Response insert(@RequestBody UserEntity userEntity) {
         if (userSV.insert(userEntity) == Common.StatusCode.SUCCESS.getCode()) {
-            return Common.StatusCode.SUCCESS.getDesc();
+            return GateWayUtil.returnSuccessResponse("用户注册成功");
         }
-        return Common.StatusCode.FAIL.getDesc();
+        return GateWayUtil.returnFailResponse("用户注册失败");
     }
 
     @PostMapping("validate")

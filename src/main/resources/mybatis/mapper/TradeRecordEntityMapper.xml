@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="share.king.dao.ShareEntityMapper">
-  <resultMap id="BaseResultMap" type="share.king.entity.ShareEntity">
+<mapper namespace="share.king.dao.TradeRecordEntityMapper">
+  <resultMap id="BaseResultMap" type="share.king.entity.TradeRecordEntity">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="alias" jdbcType="VARCHAR" property="alias" />
     <result column="code" jdbcType="VARCHAR" property="code" />
-    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="buy_time" jdbcType="TIMESTAMP" property="buyTime" />
     <result column="buy_price" jdbcType="INTEGER" property="buyPrice" />
-    <result column="buy_id" jdbcType="INTEGER" property="buyId" />
+    <result column="buy_count" jdbcType="INTEGER" property="buyCount" />
     <result column="sell_time" jdbcType="TIMESTAMP" property="sellTime" />
     <result column="sell_price" jdbcType="INTEGER" property="sellPrice" />
     <result column="open_price" jdbcType="INTEGER" property="openPrice" />
@@ -18,8 +19,7 @@
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="idea" jdbcType="VARCHAR" property="idea" />
     <result column="day_trend" jdbcType="VARCHAR" property="dayTrend" />
-    <result column="buy_count" jdbcType="INTEGER" property="buyCount" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -51,18 +51,17 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, code, create_date, buy_time, buy_price, buy_id, sell_time, sell_price, 
-    open_price, close_price, high_price, low_price, remark, idea, day_trend, buy_count, 
-    user_id
+    id, name, alias, code, user_id, buy_time, buy_price, buy_count, sell_time, sell_price, 
+    open_price, close_price, high_price, low_price, remark, idea, day_trend, create_date
   </sql>
-  <select id="selectByExample" parameterType="share.king.entity.ShareEntityExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="share.king.entity.TradeRecordEntityExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     'false' as QUERYID,
     <include refid="Base_Column_List" />
-    from share
+    from trade_record
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -73,31 +72,31 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from share
+    from trade_record
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from share
+    delete from trade_record
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="share.king.entity.ShareEntity">
-    insert into share (id, name, code, 
-      create_date, buy_time, buy_price, 
-      buy_id, sell_time, sell_price, 
-      open_price, close_price, high_price, 
-      low_price, remark, idea, 
-      day_trend, buy_count, user_id
+  <insert id="insert" parameterType="share.king.entity.TradeRecordEntity">
+    insert into trade_record (id, name, alias, 
+      code, user_id, buy_time, 
+      buy_price, buy_count, sell_time, 
+      sell_price, open_price, close_price, 
+      high_price, low_price, remark, 
+      idea, day_trend, create_date
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
-      #{createDate,jdbcType=TIMESTAMP}, #{buyTime,jdbcType=TIMESTAMP}, #{buyPrice,jdbcType=INTEGER}, 
-      #{buyId,jdbcType=INTEGER}, #{sellTime,jdbcType=TIMESTAMP}, #{sellPrice,jdbcType=INTEGER}, 
-      #{openPrice,jdbcType=INTEGER}, #{closePrice,jdbcType=INTEGER}, #{highPrice,jdbcType=INTEGER}, 
-      #{lowPrice,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{idea,jdbcType=VARCHAR}, 
-      #{dayTrend,jdbcType=VARCHAR}, #{buyCount,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, 
+      #{code,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{buyTime,jdbcType=TIMESTAMP}, 
+      #{buyPrice,jdbcType=INTEGER}, #{buyCount,jdbcType=INTEGER}, #{sellTime,jdbcType=TIMESTAMP}, 
+      #{sellPrice,jdbcType=INTEGER}, #{openPrice,jdbcType=INTEGER}, #{closePrice,jdbcType=INTEGER}, 
+      #{highPrice,jdbcType=INTEGER}, #{lowPrice,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{idea,jdbcType=VARCHAR}, #{dayTrend,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="share.king.entity.ShareEntity">
-    insert into share
+  <insert id="insertSelective" parameterType="share.king.entity.TradeRecordEntity">
+    insert into trade_record
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -105,11 +104,14 @@
       <if test="name != null">
         name,
       </if>
+      <if test="alias != null">
+        alias,
+      </if>
       <if test="code != null">
         code,
       </if>
-      <if test="createDate != null">
-        create_date,
+      <if test="userId != null">
+        user_id,
       </if>
       <if test="buyTime != null">
         buy_time,
@@ -117,8 +119,8 @@
       <if test="buyPrice != null">
         buy_price,
       </if>
-      <if test="buyId != null">
-        buy_id,
+      <if test="buyCount != null">
+        buy_count,
       </if>
       <if test="sellTime != null">
         sell_time,
@@ -147,11 +149,8 @@
       <if test="dayTrend != null">
         day_trend,
       </if>
-      <if test="buyCount != null">
-        buy_count,
-      </if>
-      <if test="userId != null">
-        user_id,
+      <if test="createDate != null">
+        create_date,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -161,11 +160,14 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
+      <if test="alias != null">
+        #{alias,jdbcType=VARCHAR},
+      </if>
       <if test="code != null">
         #{code,jdbcType=VARCHAR},
       </if>
-      <if test="createDate != null">
-        #{createDate,jdbcType=TIMESTAMP},
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
       </if>
       <if test="buyTime != null">
         #{buyTime,jdbcType=TIMESTAMP},
@@ -173,8 +175,8 @@
       <if test="buyPrice != null">
         #{buyPrice,jdbcType=INTEGER},
       </if>
-      <if test="buyId != null">
-        #{buyId,jdbcType=INTEGER},
+      <if test="buyCount != null">
+        #{buyCount,jdbcType=INTEGER},
       </if>
       <if test="sellTime != null">
         #{sellTime,jdbcType=TIMESTAMP},
@@ -203,25 +205,25 @@
       <if test="dayTrend != null">
         #{dayTrend,jdbcType=VARCHAR},
       </if>
-      <if test="buyCount != null">
-        #{buyCount,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="share.king.entity.ShareEntity">
-    update share
+  <update id="updateByPrimaryKeySelective" parameterType="share.king.entity.TradeRecordEntity">
+    update trade_record
     <set>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
+      <if test="alias != null">
+        alias = #{alias,jdbcType=VARCHAR},
+      </if>
       <if test="code != null">
         code = #{code,jdbcType=VARCHAR},
       </if>
-      <if test="createDate != null">
-        create_date = #{createDate,jdbcType=TIMESTAMP},
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
       </if>
       <if test="buyTime != null">
         buy_time = #{buyTime,jdbcType=TIMESTAMP},
@@ -229,8 +231,8 @@
       <if test="buyPrice != null">
         buy_price = #{buyPrice,jdbcType=INTEGER},
       </if>
-      <if test="buyId != null">
-        buy_id = #{buyId,jdbcType=INTEGER},
+      <if test="buyCount != null">
+        buy_count = #{buyCount,jdbcType=INTEGER},
       </if>
       <if test="sellTime != null">
         sell_time = #{sellTime,jdbcType=TIMESTAMP},
@@ -259,23 +261,21 @@
       <if test="dayTrend != null">
         day_trend = #{dayTrend,jdbcType=VARCHAR},
       </if>
-      <if test="buyCount != null">
-        buy_count = #{buyCount,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="share.king.entity.ShareEntity">
-    update share
+  <update id="updateByPrimaryKey" parameterType="share.king.entity.TradeRecordEntity">
+    update trade_record
     set name = #{name,jdbcType=VARCHAR},
+      alias = #{alias,jdbcType=VARCHAR},
       code = #{code,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=INTEGER},
       buy_time = #{buyTime,jdbcType=TIMESTAMP},
       buy_price = #{buyPrice,jdbcType=INTEGER},
-      buy_id = #{buyId,jdbcType=INTEGER},
+      buy_count = #{buyCount,jdbcType=INTEGER},
       sell_time = #{sellTime,jdbcType=TIMESTAMP},
       sell_price = #{sellPrice,jdbcType=INTEGER},
       open_price = #{openPrice,jdbcType=INTEGER},
@@ -285,13 +285,12 @@
       remark = #{remark,jdbcType=VARCHAR},
       idea = #{idea,jdbcType=VARCHAR},
       day_trend = #{dayTrend,jdbcType=VARCHAR},
-      buy_count = #{buyCount,jdbcType=INTEGER},
-      user_id = #{userId,jdbcType=INTEGER}
+      create_date = #{createDate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectAll" resultType="share.king.entity.ShareEntity">
-    select * from share
+  <select id="selectAll" resultType="share.king.entity.TradeRecordEntity">
+    select * from trade_record
   </select>
 
 </mapper>
