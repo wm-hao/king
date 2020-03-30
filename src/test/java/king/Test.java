@@ -14,8 +14,10 @@ import share.king.service.interfaces.IMailSV;
 import share.king.service.interfaces.ITradeRecordSV;
 import share.king.service.interfaces.IUserSV;
 import share.king.util.RedisUtil;
+import share.king.util.TimeUtil;
 import share.king.util.TokenUtil;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -110,4 +112,13 @@ public class Test {
     }
 
 
+    @org.junit.Test
+    public void selectByCondition() {
+        Timestamp startDate = new Timestamp(TimeUtil.getTimestampByFormat("20200330","yyyyMMdd").getTime());
+        PageInfo<TradeRecordEntity> pageInfo =  tradeRecordSV.selectByDateType(startDate, null, false);
+        List<TradeRecordEntity> tradeRecordEntities = pageInfo.getList();
+        for (TradeRecordEntity tradeRecordEntity : tradeRecordEntities) {
+            log.error(tradeRecordEntity.getName());
+        }
+    }
 }

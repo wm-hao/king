@@ -3,6 +3,8 @@ package share.king.service.interfaces;
 import com.github.pagehelper.PageInfo;
 import share.king.entity.TradeRecordEntity;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface ITradeRecordSV {
@@ -23,5 +25,5 @@ public interface ITradeRecordSV {
 
     PageInfo<TradeRecordEntity> selectByPage(int pageNum, int pageSize);
 
-    PageInfo<TradeRecordEntity> selectByDateType(String startDate, String endDate, String opType);
+    PageInfo<TradeRecordEntity> selectByDateType(Timestamp startDate, Timestamp endDate, boolean profit);
 }

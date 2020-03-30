@@ -1,5 +1,7 @@
 package share.king.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class TradeRecordEntity {
@@ -12,13 +14,13 @@ public class TradeRecordEntity {
     private String code;
 
     private Integer userId;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date buyTime;
 
     private Integer buyPrice;
 
     private Integer buyCount;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date sellTime;
 
     private Integer sellPrice;
@@ -37,6 +39,7 @@ public class TradeRecordEntity {
 
     private String dayTrend;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createDate;
 
     public Integer getId() {

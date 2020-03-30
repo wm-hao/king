@@ -14,9 +14,9 @@ spring:
   mail:
     host: smtp.163.com
     port: 25
-    username: 13218020018@163.com
-    password: zhh19961026
-    from: 13218020018@163.com
+    username: 
+    password:
+    from: 
 server:
   port: 11111
 pagehelper:

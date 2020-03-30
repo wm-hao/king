@@ -1,8 +1,10 @@
 package share.king.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import share.king.entity.TradeRecordEntity;
 import share.king.entity.TradeRecordEntityExample;
 
@@ -23,4 +25,6 @@ public interface TradeRecordEntityMapper {
     int updateByPrimaryKey(TradeRecordEntity record);
 
     List<TradeRecordEntity> selectAll();
+
+    List<TradeRecordEntity> selectByCondition(@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate, @Param("profit") boolean profit);
 }

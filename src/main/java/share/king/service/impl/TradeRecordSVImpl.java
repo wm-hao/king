@@ -8,6 +8,7 @@ import share.king.dao.TradeRecordEntityMapper;
 import share.king.entity.TradeRecordEntity;
 import share.king.service.interfaces.ITradeRecordSV;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -61,7 +62,7 @@ public class TradeRecordSVImpl implements ITradeRecordSV {
     }
 
     @Override
-    public PageInfo<TradeRecordEntity> selectByDateType(String startDate, String endDate, String opType) {
-        return null;
+    public PageInfo<TradeRecordEntity> selectByDateType(Timestamp startDate, Timestamp endDate, boolean profit) {
+        return new PageInfo<>(tradeRecordEntityMapper.selectByCondition(startDate, endDate, profit));
     }
 }
