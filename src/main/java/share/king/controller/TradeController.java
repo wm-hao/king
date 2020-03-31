@@ -57,5 +57,13 @@ public class TradeController {
         return response;
     }
 
+    @PostMapping("update")
+    public Response update(@RequestBody TradeRecordEntity tradeRecordEntity) {
+        if (tradeRecordSV.updateByPrimaryKeySelective(tradeRecordEntity) == Common.StatusCode.SUCCESS.getCode()) {
+            return GateWayUtil.returnSuccessResponse("更新成功");
+        }
+        return GateWayUtil.returnFailResponse("更新失败");
+    }
+
 
 }

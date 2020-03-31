@@ -18,6 +18,7 @@ import share.king.util.TimeUtil;
 import share.king.util.TokenUtil;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -114,11 +115,25 @@ public class Test {
 
     @org.junit.Test
     public void selectByCondition() {
-        Timestamp startDate = new Timestamp(TimeUtil.getTimestampByFormat("20200330","yyyyMMdd").getTime());
-        PageInfo<TradeRecordEntity> pageInfo =  tradeRecordSV.selectByDateType(startDate, null, false);
+        Timestamp startDate = new Timestamp(TimeUtil.getTimestampByFormat("20200330", "yyyyMMdd").getTime());
+        PageInfo<TradeRecordEntity> pageInfo = tradeRecordSV.selectByDateType(startDate, null, "");
         List<TradeRecordEntity> tradeRecordEntities = pageInfo.getList();
         for (TradeRecordEntity tradeRecordEntity : tradeRecordEntities) {
             log.error(tradeRecordEntity.getName());
         }
+    }
+
+    @org.junit.Test
+    public void updateTradeSelective() {
+        TradeRecordEntity entity = new TradeRecordEntity();
+        TradeRecordEntity entity1 = new TradeRecordEntity();
+        entity.setName("cs15");
+        entity.setId(15);
+        entity1.setName("cs16");
+        entity1.setId(16);
+        List<TradeRecordEntity> list = new ArrayList<>();
+        list.add(entity);
+        list.add(entity1);
+        log.error("结果" + tradeRecordSV.updateBatch(list));
     }
 }
