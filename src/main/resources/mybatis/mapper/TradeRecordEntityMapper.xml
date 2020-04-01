@@ -297,18 +297,33 @@
     <select id="selectByCondition" resultType="share.king.entity.TradeRecordEntity">
         select * from trade_record where 1=1
         <if test="startDate != null">
-            and #{startDate,jdbcType=TIMESTAMP} > create_date
+            and create_date > #{startDate,jdbcType=TIMESTAMP}
         </if>
         <if test="endDate != null">
-            and create_date > #{endDate,jdbcType=TIMESTAMP}
+            and #{endDate,jdbcType=TIMESTAMP} > create_date
         </if>
         <if test="profit != null">
             <choose>
                 <when test='profit == "Y"'>
                     and sell_price > buy_price
                 </when>
-                <otherwise>
+                <when test='profit == "N"'>
                     and sell_price &lt; buy_price
+                </when>
+                <otherwise>
+
+                </otherwise>
+            </choose>
+        </if>
+        <if test="asc != null">
+            <choose>
+                <when test='asc == "Y"'>
+                    order by create_date asc
+                </when>
+                <when test='asc == "N"'>
+                    order by create_date desc
+                </when>
+                <otherwise>
                 </otherwise>
             </choose>
         </if>

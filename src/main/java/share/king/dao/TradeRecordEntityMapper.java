@@ -26,7 +26,7 @@ public interface TradeRecordEntityMapper {
 
     List<TradeRecordEntity> selectAll();
 
-    List<TradeRecordEntity> selectByCondition(@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate, @Param("profit") String profit);
+    List<TradeRecordEntity> selectByCondition(@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate, @Param("profit") String profit, @Param("asc") String asc);
 
     int updateBatch(@Param("list") List<TradeRecordEntity> tradeRecordEntities);
 }

@@ -31,7 +31,7 @@ public class UserSVImpl implements IUserSV {
         record.setOptDate(currDate);
         record.setValidDate(currDate);
         record.setState(Common.USER_STATE_U);
-        record.setExpireDate(TimeUtil.getTimestampByFormat("20991231235959", TimeUtil.YYYYMMDDHH24SS));
+        record.setExpireDate(TimeUtil.getTimestampByFormat("20991231235959", TimeUtil.yyyyMMddHHmmss));
         return userEntityMapper.insert(record);
     }
 

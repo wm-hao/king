@@ -116,8 +116,9 @@ public class Test {
     @org.junit.Test
     public void selectByCondition() {
         Timestamp startDate = new Timestamp(TimeUtil.getTimestampByFormat("20200330", "yyyyMMdd").getTime());
-        PageInfo<TradeRecordEntity> pageInfo = tradeRecordSV.selectByDateType(startDate, null, "");
+        PageInfo<TradeRecordEntity> pageInfo = tradeRecordSV.selectByCondition(10, 20, null, null, "", null);
         List<TradeRecordEntity> tradeRecordEntities = pageInfo.getList();
+        log.error("长度:" + tradeRecordEntities.size());
         for (TradeRecordEntity tradeRecordEntity : tradeRecordEntities) {
             log.error(tradeRecordEntity.getName());
         }

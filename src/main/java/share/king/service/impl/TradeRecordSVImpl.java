@@ -62,8 +62,9 @@ public class TradeRecordSVImpl implements ITradeRecordSV {
     }
 
     @Override
-    public PageInfo<TradeRecordEntity> selectByDateType(Timestamp startDate, Timestamp endDate, String profit) {
-        return new PageInfo<>(tradeRecordEntityMapper.selectByCondition(startDate, endDate, profit));
+    public PageInfo<TradeRecordEntity> selectByCondition(int pageNum, int pageSize, Timestamp startDate, Timestamp endDate, String profit, String asc) {
+        PageHelper.startPage(pageNum, pageSize);
+        return new PageInfo<>(tradeRecordEntityMapper.selectByCondition(startDate, endDate, profit, asc));
     }
 
     @Override

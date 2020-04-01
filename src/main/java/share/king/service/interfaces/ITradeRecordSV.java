@@ -24,7 +24,7 @@ public interface ITradeRecordSV {
 
     PageInfo<TradeRecordEntity> selectByPage(int pageNum, int pageSize);
 
-    PageInfo<TradeRecordEntity> selectByDateType(Timestamp startDate, Timestamp endDate, String profit);
+    PageInfo<TradeRecordEntity> selectByCondition(int pageNum, int pageSize, Timestamp startDate, Timestamp endDate, String profit, String asc);
 
     int updateBatch(List<TradeRecordEntity> tradeRecordEntities);
 }
