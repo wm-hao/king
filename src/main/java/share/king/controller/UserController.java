@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import share.king.dto.Response;
 import share.king.entity.UserEntity;
@@ -27,6 +28,9 @@ public class UserController {
     @Autowired
     IMailSV mailSV;
 
+    @Value("${token.expire.hours}")
+    private long tokenExpireHours;
+
     @PostMapping(value = "insert")
     public Response insert(@RequestBody UserEntity userEntity) {
         if (userSV.insert(userEntity) == Common.StatusCode.SUCCESS.getCode()) {
@@ -48,8 +52,9 @@ public class UserController {
                         String password = userEntity.getPassword();
                         String cipherText = Utils.getMD5(password);
                         if (StringUtils.equals(cipherText, user.getPassword())) {
-                            returnData = TokenUtil.createJWT(-1, user);
-                            redisUtil.set(user.getUserName(), returnData, 60 * 60);
+                            String token = TokenUtil.createJWT(-1, user);
+                            returnData = user.getId() + "-" + token;
+                            redisUtil.set(user.getUserName(), token, tokenExpireHours * 60 * 60);
                             success = true;
                         }
                     } else {

@@ -4,3 +4,7 @@ spring:
     url: jdbc:mysql://localhost:3306/share?serverTimezone=Asia/Shanghai&useAffectedRows=true&allowMultiQueries=true
     username: zhuhh
     password: zhuhh
+
+token:
+  expire:
+    hours: 4
