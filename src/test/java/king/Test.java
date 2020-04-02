@@ -12,6 +12,7 @@ import share.king.dao.DailyRepository;
 import share.king.entity.DailyEntity;
 import share.king.entity.TradeRecordEntity;
 import share.king.entity.UserEntity;
+import share.king.service.interfaces.IDailySV;
 import share.king.service.interfaces.IMailSV;
 import share.king.service.interfaces.ITradeRecordSV;
 import share.king.service.interfaces.IUserSV;
@@ -42,6 +43,9 @@ public class Test {
 
     @Autowired
     private DailyRepository dailyRepository;
+
+    @Autowired
+    private IDailySV dailySV;
 
     @org.junit.Test
     public void test() throws Exception {
@@ -155,5 +159,10 @@ public class Test {
     @org.junit.Test
     public void testQryDaily() {
         log.error(dailyRepository.findByUserId(1));
+    }
+
+    @org.junit.Test
+    public void testQryDailyExample() {
+        log.error(dailySV.qryPage(1, 10, 1, "createDate", true));
     }
 }

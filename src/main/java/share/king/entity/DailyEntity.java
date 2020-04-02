@@ -20,7 +20,7 @@ public class DailyEntity {
     @Column(columnDefinition = "timestamp")
     private Date optDate;
 
-    private int state;
+    private Integer state;
 
     @Column(length = 6)
     private String month;
@@ -56,11 +56,11 @@ public class DailyEntity {
         this.optDate = optDate;
     }
 
-    public int getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 
