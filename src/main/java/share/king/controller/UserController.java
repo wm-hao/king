@@ -1,5 +1,6 @@
 package share.king.controller;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -108,5 +109,29 @@ public class UserController {
             }
         }
         return GateWayUtil.returnFailResponse("更新密码失败");
+    }
+
+    @PostMapping("update")
+    public Response update(@RequestBody UserEntity userEntity) {
+        UserEntity user = userSV.selectByPrimaryKey(userEntity.getId());
+        if (user == null) {
+            return GateWayUtil.returnFailResponse("用户信息查询失败");
+        }
+        if (!StringUtils.equals(user.getPassword(), userEntity.getPassword().trim())) {
+            userEntity.setPassword(Utils.getMD5(userEntity.getPassword()));
+        }
+        if (Common.StatusCode.SUCCESS.getCode() == userSV.updateByPrimaryKeySelective(userEntity)) {
+            return GateWayUtil.returnSuccessResponse("更新用户信息成功");
+        }
+        return GateWayUtil.returnFailResponse("更新用户信息失败");
+    }
+
+    @GetMapping("qry")
+    public Response qry(@RequestParam Integer id) {
+        UserEntity userEntity = userSV.selectByPrimaryKey(id);
+        if (userEntity != null) {
+            return GateWayUtil.returnSuccessResponse(JSON.toJSONString(userEntity));
+        }
+        return GateWayUtil.returnFailResponse("未查询到用户信息");
     }
 }

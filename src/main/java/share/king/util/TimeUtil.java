@@ -9,6 +9,7 @@ import java.util.Date;
 public class TimeUtil {
     public static final String yyyyMMddHHmmss = "yyyyMMddHHmmss";
     public static final String yyyyMMdd = "yyyyMMdd";
+    public static final String yyyyMM = "yyyyMM";
 
     public static Timestamp getTimestampByFormat(String date, String format) {
         Timestamp time = null;
@@ -37,4 +38,9 @@ public class TimeUtil {
         }
         return result;
     }
+
+    public static String getStringByFormat(Date date, String format) {
+        return new SimpleDateFormat(format).format(date);
+    }
+
 }

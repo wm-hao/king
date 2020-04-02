@@ -4,7 +4,12 @@ spring:
     url: jdbc:mysql://localhost:3306/share?serverTimezone=Asia/Shanghai&useAffectedRows=true&allowMultiQueries=true
     username: zhuhh
     password: zhuhh
-
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  main:
+    allow-bean-definition-overriding: true
 token:
   expire:
     hours: 4

@@ -26,7 +26,7 @@ public class UserSVImpl implements IUserSV {
     @Override
     public int insert(UserEntity record) {
         Date currDate = new Date();
-        record.setPassword(Utils.getMD5(record.getPassword()));
+        record.setPassword(Utils.getMD5(record.getPassword().trim()));
         record.setCreateDate(currDate);
         record.setOptDate(currDate);
         record.setValidDate(currDate);
@@ -48,6 +48,7 @@ public class UserSVImpl implements IUserSV {
 
     @Override
     public int updateByPrimaryKeySelective(UserEntity record) {
+        record.setOptDate(new Date());
         return userEntityMapper.updateByPrimaryKey(record);
     }
 

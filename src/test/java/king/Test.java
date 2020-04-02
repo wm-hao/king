@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import share.king.MainApplication;
+import share.king.dao.DailyRepository;
+import share.king.entity.DailyEntity;
 import share.king.entity.TradeRecordEntity;
 import share.king.entity.UserEntity;
 import share.king.service.interfaces.IMailSV;
@@ -37,6 +39,9 @@ public class Test {
     private IUserSV userSV;
     @Autowired
     IMailSV mailSV;
+
+    @Autowired
+    private DailyRepository dailyRepository;
 
     @org.junit.Test
     public void test() throws Exception {
@@ -136,5 +141,19 @@ public class Test {
         list.add(entity);
         list.add(entity1);
         log.error("结果" + tradeRecordSV.updateBatch(list));
+    }
+
+    @org.junit.Test
+    public void testSaveDaily() {
+        DailyEntity dailyEntity = new DailyEntity();
+        dailyEntity.setCreateDate(new Date());
+        dailyEntity.setMonth(TimeUtil.getStringByFormat(new Date(), TimeUtil.yyyyMM));
+        dailyEntity.setIdea("测试");
+        dailyRepository.save(dailyEntity);
+    }
+
+    @org.junit.Test
+    public void testQryDaily() {
+        log.error(dailyRepository.findByUserId(1));
     }
 }
