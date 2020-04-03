@@ -9,7 +9,7 @@ import share.king.entity.TradeRecordEntity;
 import share.king.entity.TradeRecordEntityExample;
 
 @Mapper
-public interface TradeRecordEntityMapper {
+public interface TradeRecordEntityMapper extends ExtensionTradeRecordEntityMapper {
     int deleteByPrimaryKey(Integer id);
 
     int insert(TradeRecordEntity record);
@@ -24,9 +24,4 @@ public interface TradeRecordEntityMapper {
 
     int updateByPrimaryKey(TradeRecordEntity record);
 
-    List<TradeRecordEntity> selectAll();
-
-    List<TradeRecordEntity> selectByCondition(@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate, @Param("profit") String profit, @Param("asc") String asc);
-
-    int updateBatch(@Param("list") List<TradeRecordEntity> tradeRecordEntities);
 }

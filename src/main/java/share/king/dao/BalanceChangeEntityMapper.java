@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import share.king.entity.BalanceChangeEntity;
 
 @Mapper
-public interface BalanceChangeEntityMapper {
+public interface BalanceChangeEntityMapper extends ExtensionBalanceChangeEntityMapper {
     int deleteByPrimaryKey(Integer id);
 
     int insert(BalanceChangeEntity record);

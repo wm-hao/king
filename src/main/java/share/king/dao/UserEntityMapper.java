@@ -7,7 +7,7 @@ import share.king.entity.UserEntityExample;
 import java.util.List;
 
 @Mapper
-public interface UserEntityMapper {
+public interface UserEntityMapper extends ExtensionUserEntityMapper {
     int deleteByPrimaryKey(Integer id);
 
     int insert(UserEntity record);
@@ -22,5 +22,5 @@ public interface UserEntityMapper {
 
     int updateByPrimaryKey(UserEntity record);
 
-    UserEntity findByUserName(String userName);
+
 }

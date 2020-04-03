@@ -1,6 +1,6 @@
 mybatis:
   type-aliases-package: share.king.entity
-  mapper-locations: classpath:mybatis/mapper/*.xml
+  mapper-locations: [classpath:mybatis/mapper/*.xml,classpath:mybatis/mapper/ext/*.xml]
   configuration:
     map-underscore-to-camel-case: true
     interceptors:
@@ -14,9 +14,9 @@ spring:
   mail:
     host: smtp.163.com
     port: 25
-    username: 
+    username:
     password:
-    from: 
+    from:
 server:
   port: 11111
 pagehelper:

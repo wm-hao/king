@@ -1,7 +1,5 @@
 package share.king.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Date;
 
 public class BalanceChangeEntity {
@@ -19,12 +17,10 @@ public class BalanceChangeEntity {
 
     private Integer originId;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createDate;
 
     private String remark;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date optDate;
 
     public Integer getId() {

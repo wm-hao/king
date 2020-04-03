@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="share.king.dao.TradeRecordEntityMapper">
+
+    <select id="selectAll" resultType="share.king.entity.TradeRecordEntity">
+        select *
+        from trade_record
+    </select>
+
+    <select id="selectByCondition" resultType="share.king.entity.TradeRecordEntity">
+        select * from trade_record where 1=1
+        <if test="startDate != null">
+            and buy_time > #{startDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="endDate != null">
+            and #{endDate,jdbcType=TIMESTAMP} > buy_time
+        </if>
+        <if test="profit != null">
+            <choose>
+                <when test='profit == "Y"'>
+                    and sell_price > buy_price
+                </when>
+                <when test='profit == "N"'>
+                    and sell_price &lt; buy_price
+                </when>
+                <otherwise>
+
+                </otherwise>
+            </choose>
+        </if>
+        <if test="asc != null">
+            <choose>
+                <when test='asc == "Y"'>
+                    order by create_date
+                </when>
+                <when test='asc == "N"'>
+                    order by create_date desc
+                </when>
+                <otherwise>
+                </otherwise>
+            </choose>
+        </if>
+    </select>
+
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update trade_record
+            <set>
+                <if test="item.name != null">
+                    name = #{item.name,jdbcType=VARCHAR},
+                </if>
+                <if test="item.alias != null">
+                    alias = #{item.alias,jdbcType=VARCHAR},
+                </if>
+                <if test="item.code != null">
+                    code = #{item.code,jdbcType=VARCHAR},
+                </if>
+                <if test="item.userId != null">
+                    user_id = #{item.userId,jdbcType=INTEGER},
+                </if>
+                <if test="item.buyTime != null">
+                    buy_time = #{item.buyTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.buyPrice != null">
+                    buy_price = #{item.buyPrice,jdbcType=INTEGER},
+                </if>
+                <if test="item.buyCount != null">
+                    buy_count = #{item.buyCount,jdbcType=INTEGER},
+                </if>
+                <if test="item.sellTime != null">
+                    sell_time = #{item.sellTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.sellPrice != null">
+                    sell_price = #{item.sellPrice,jdbcType=INTEGER},
+                </if>
+                <if test="item.openPrice != null">
+                    open_price = #{item.openPrice,jdbcType=INTEGER},
+                </if>
+                <if test="item.closePrice != null">
+                    close_price = #{item.closePrice,jdbcType=INTEGER},
+                </if>
+                <if test="item.highPrice != null">
+                    high_price = #{item.highPrice,jdbcType=INTEGER},
+                </if>
+                <if test="item.lowPrice != null">
+                    low_price = #{item.lowPrice,jdbcType=INTEGER},
+                </if>
+                <if test="item.remark != null">
+                    remark = #{item.remark,jdbcType=VARCHAR},
+                </if>
+                <if test="item.idea != null">
+                    idea = #{item.idea,jdbcType=VARCHAR},
+                </if>
+                <if test="item.dayTrend != null">
+                    day_trend = #{item.dayTrend,jdbcType=VARCHAR},
+                </if>
+                <if test="item.createDate != null">
+                    create_date = #{item.createDate,jdbcType=TIMESTAMP},
+                </if>
+            </set>
+            where id = #{item.id,jdbcType=INTEGER}
+        </foreach>
+    </update>
+</mapper>
