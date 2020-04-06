@@ -33,43 +33,42 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
-       <!-- <table tableName="trade_record"
-               domainObjectName="TradeRecordEntity"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false"
+        <table tableName="trade_record"
+               domainObjectName="TradeRecord"
+               enableCountByExample="true"
+               enableUpdateByExample="true"
+               enableDeleteByExample="true"
                enableSelectByExample="true"
-               selectByExampleQueryId="false">
-               <property name="rootInterface" value="ExtensionTradeRecordEntityMapper"/>
+               selectByExampleQueryId="true">
+               <property name="rootInterface" value="ExtensionTradeRecordMapper"/>
 
-        </table>-->
-      <!--  <table tableName="user"
-               domainObjectName="UserEntity"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false"
-               enableSelectByExample="true"
-               selectByExampleQueryId="false">
-            <property name="rootInterface" value="ExtensionUserEntityMapper"/>
         </table>
--->
-        <!--<table tableName="balance"
-               domainObjectName="BalanceEntity"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false"
-               enableSelectByExample="false"
-               selectByExampleQueryId="false">
-            <property name="rootInterface" value="ExtensionBalanceEntityMapper"/>
-        </table>-->
+        <table tableName="user"
+               domainObjectName="User"
+               enableCountByExample="true"
+               enableUpdateByExample="true"
+               enableDeleteByExample="true"
+               enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <property name="rootInterface" value="ExtensionUserMapper"/>
+        </table>
+        <table tableName="balance"
+               domainObjectName="Balance"
+               enableCountByExample="true"
+               enableUpdateByExample="true"
+               enableDeleteByExample="true"
+               enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <property name="rootInterface" value="ExtensionBalanceMapper"/>
+        </table>
         <table tableName="balance_change"
-               domainObjectName="BalanceChangeEntity"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false"
-               enableSelectByExample="false"
-               selectByExampleQueryId="false">
-            <property name="rootInterface" value="ExtensionBalanceChangeEntityMapper"/>
+               domainObjectName="BalanceChange"
+               enableCountByExample="true"
+               enableUpdateByExample="true"
+               enableDeleteByExample="true"
+               enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <property name="rootInterface" value="ExtensionBalanceChangeMapper"/>
         </table>
     </context>
 </generatorConfiguration>

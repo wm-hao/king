@@ -2,7 +2,7 @@ package share.king.entity;
 
 import java.util.Date;
 
-public class BalanceChangeEntity {
+public class BalanceChange {
     private Integer id;
 
     private Integer balanceId;
@@ -22,6 +22,8 @@ public class BalanceChangeEntity {
     private String remark;
 
     private Date optDate;
+
+    private Integer state;
 
     public Integer getId() {
         return id;
@@ -101,5 +103,13 @@ public class BalanceChangeEntity {
 
     public void setOptDate(Date optDate) {
         this.optDate = optDate;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 }

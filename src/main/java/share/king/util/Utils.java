@@ -33,4 +33,34 @@ public class Utils {
         return verificationCode.toString();
     }
 
+    public static String convertWeekDay(int weekDay) {
+        String weekDatDesc;
+        switch (weekDay) {
+            case 1:
+                weekDatDesc = "星期天";
+                break;
+            case 2:
+                weekDatDesc = "星期一";
+                break;
+            case 3:
+                weekDatDesc = "星期二";
+                break;
+            case 4:
+                weekDatDesc = "星期三";
+                break;
+            case 5:
+                weekDatDesc = "星期四";
+                break;
+            case 6:
+                weekDatDesc = "星期五";
+                break;
+            case 7:
+                weekDatDesc = "星期六";
+                break;
+            default:
+                weekDatDesc = "未知";
+        }
+        return weekDatDesc;
+    }
+
 }

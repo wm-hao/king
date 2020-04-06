@@ -5,6 +5,7 @@ public class TradeRecordQry extends QryParams {
     private String endDate;
     private String profit;
     private String asc;
+    private Integer userId;
 
     public String getStartDate() {
         return startDate;
@@ -38,14 +39,22 @@ public class TradeRecordQry extends QryParams {
         this.asc = asc;
     }
 
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "TradeRecordQry{" +
-                super.toString() +
                 "startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
                 ", profit='" + profit + '\'' +
                 ", asc='" + asc + '\'' +
+                ", userId=" + userId +
                 '}';
     }
 }

@@ -2,7 +2,7 @@ package share.king.entity;
 
 import java.util.Date;
 
-public class UserEntity {
+public class User {
     private Integer id;
 
     private String userName;
@@ -26,15 +26,6 @@ public class UserEntity {
     private String zip;
 
     private String billId;
-
-
-    public UserEntity() {
-    }
-
-    public UserEntity(String userName, String password) {
-        this.userName = userName;
-        this.password = password;
-    }
 
     public Integer getId() {
         return id;

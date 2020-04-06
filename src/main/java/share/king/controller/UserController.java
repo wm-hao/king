@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import share.king.dto.Response;
-import share.king.entity.UserEntity;
+import share.king.entity.User;
 import share.king.service.interfaces.IMailSV;
 import share.king.service.interfaces.IUserSV;
 import share.king.util.*;
@@ -33,33 +33,33 @@ public class UserController {
     private long tokenExpireHours;
 
     @PostMapping(value = "insert")
-    public Response insert(@RequestBody UserEntity userEntity) {
-        if (userSV.insert(userEntity) == Common.StatusCode.SUCCESS.getCode()) {
+    public Response insert(@RequestBody User user) {
+        if (userSV.insert(user) == Common.StatusCode.SUCCESS.getCode()) {
             return GateWayUtil.returnSuccessResponse("用户注册成功");
         }
         return GateWayUtil.returnFailResponse("用户注册失败");
     }
 
     @PostMapping("validate")
-    public Response validate(@RequestBody UserEntity userEntity) {
-        log.info("用户信息验证请求参数:" + userEntity);
+    public Response validate(@RequestBody User user) {
+        log.info("用户信息验证请求参数:" + user);
         String returnData = "用户验证失败";
-        if (userEntity != null && StringUtils.isNotBlank(userEntity.getUserName())) {
-            if (StringUtils.isNotBlank(userEntity.getPassword()) || StringUtils.isNotBlank(userEntity.getEmail())) {
-                UserEntity user = userSV.findByUserName(userEntity.getUserName());
+        if (user != null && StringUtils.isNotBlank(user.getUserName())) {
+            if (StringUtils.isNotBlank(user.getPassword()) || StringUtils.isNotBlank(user.getEmail())) {
+                User dbUser = userSV.findByUserName(user.getUserName());
                 boolean success = false;
-                if (user != null) {
-                    if (StringUtils.isNotBlank(userEntity.getPassword())) {
-                        String password = userEntity.getPassword();
+                if (dbUser != null) {
+                    if (StringUtils.isNotBlank(user.getPassword())) {
+                        String password = user.getPassword();
                         String cipherText = Utils.getMD5(password);
-                        if (StringUtils.equals(cipherText, user.getPassword())) {
-                            String token = TokenUtil.createJWT(-1, user);
-                            returnData = user.getId() + "-" + token;
-                            redisUtil.set(user.getUserName(), token, tokenExpireHours * 60 * 60);
+                        if (StringUtils.equals(cipherText, dbUser.getPassword())) {
+                            String token = TokenUtil.createJWT(-1, dbUser);
+                            returnData = dbUser.getId() + "-" + token;
+                            redisUtil.set(dbUser.getUserName(), token, tokenExpireHours * 60 * 60);
                             success = true;
                         }
                     } else {
-                        if (StringUtils.equals(userEntity.getEmail(), user.getEmail())) {
+                        if (StringUtils.equals(dbUser.getEmail(), user.getEmail())) {
                             returnData = "用户名与邮箱匹配成功";
                             success = true;
                         }
@@ -76,9 +76,9 @@ public class UserController {
     @GetMapping("exists")
     public Response exists(@RequestParam String userName) {
         log.info("校验用户名是否存在请求参数:" + userName);
-        UserEntity userEntity = userSV.findByUserName(userName);
-        if (userEntity == null) {
-            return GateWayUtil.returnSuccessResponse("");
+        User user = userSV.findByUserName(userName);
+        if (user == null) {
+            return GateWayUtil.returnSuccessResponse("用户名不存在");
         }
         return GateWayUtil.returnFailResponse("用户名已存在");
     }
@@ -86,7 +86,7 @@ public class UserController {
     @GetMapping("verifyCode")
     public Response getVerifyCode(@RequestParam String userName, @RequestParam String email) {
         if (StringUtils.isNotBlank(userName) && StringUtils.isNotBlank(email)) {
-            UserEntity user = userSV.findByUserName(userName);
+            User user = userSV.findByUserName(userName);
             if (user != null && StringUtils.equals(email, user.getEmail())) {
                 String verifyCode = Utils.createVerificationCode(5);
                 mailSV.sendSimpleMail(email.trim(), Common.FORGET_PASS_EMAIL_TLP_SUBJECT, Common.FORGET_PASS_EMAIL_TLP_CONTENT.replaceAll(Common.USER, userName).replaceAll(Common.VERIFY_CODE, verifyCode));
@@ -97,14 +97,14 @@ public class UserController {
     }
 
     @PostMapping("updatePass")
-    public Response updatePass(@RequestBody UserEntity userEntity) {
-        if (StringUtils.isNotBlank(userEntity.getUserName()) && StringUtils.isNotBlank(userEntity.getPassword())) {
-            UserEntity user = userSV.findByUserName(userEntity.getUserName());
-            if (user == null) {
+    public Response updatePass(@RequestBody User user) {
+        if (StringUtils.isNotBlank(user.getUserName()) && StringUtils.isNotBlank(user.getPassword())) {
+            User dbUser = userSV.findByUserName(user.getUserName());
+            if (dbUser == null) {
                 return GateWayUtil.returnFailResponse("用户不存在，无法更新密码");
             }
-            user.setPassword(Utils.getMD5(userEntity.getPassword()));
-            if (Common.StatusCode.SUCCESS.getCode() == userSV.updateByPrimaryKeySelective(user)) {
+            dbUser.setPassword(Utils.getMD5(user.getPassword()));
+            if (Common.StatusCode.SUCCESS.getCode() == userSV.updateByPrimaryKeySelective(dbUser)) {
                 return GateWayUtil.returnSuccessResponse("更新密码成功");
             }
         }
@@ -112,15 +112,15 @@ public class UserController {
     }
 
     @PostMapping("update")
-    public Response update(@RequestBody UserEntity userEntity) {
-        UserEntity user = userSV.selectByPrimaryKey(userEntity.getId());
-        if (user == null) {
+    public Response update(@RequestBody User user) {
+        User dbUser = userSV.selectByPrimaryKey(user.getId());
+        if (dbUser == null) {
             return GateWayUtil.returnFailResponse("用户信息查询失败");
         }
-        if (!StringUtils.equals(user.getPassword(), userEntity.getPassword().trim())) {
-            userEntity.setPassword(Utils.getMD5(userEntity.getPassword()));
+        if (!StringUtils.equals(dbUser.getPassword(), user.getPassword().trim())) {
+            dbUser.setPassword(Utils.getMD5(user.getPassword()));
         }
-        if (Common.StatusCode.SUCCESS.getCode() == userSV.updateByPrimaryKeySelective(userEntity)) {
+        if (Common.StatusCode.SUCCESS.getCode() == userSV.updateByPrimaryKeySelective(dbUser)) {
             return GateWayUtil.returnSuccessResponse("更新用户信息成功");
         }
         return GateWayUtil.returnFailResponse("更新用户信息失败");
@@ -128,9 +128,9 @@ public class UserController {
 
     @GetMapping("qry")
     public Response qry(@RequestParam Integer id) {
-        UserEntity userEntity = userSV.selectByPrimaryKey(id);
-        if (userEntity != null) {
-            return GateWayUtil.returnSuccessResponse(JSON.toJSONString(userEntity));
+        User user = userSV.selectByPrimaryKey(id);
+        if (user != null) {
+            return GateWayUtil.returnSuccessResponse(JSON.toJSONString(user));
         }
         return GateWayUtil.returnFailResponse("未查询到用户信息");
     }

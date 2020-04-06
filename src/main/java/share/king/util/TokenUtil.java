@@ -4,7 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import share.king.entity.UserEntity;
+import share.king.entity.User;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -23,7 +23,7 @@ public class TokenUtil {
      * @param user      登录成功的user对象
      * @return
      */
-    public static String createJWT(long ttlMillis, UserEntity user) {
+    public static String createJWT(long ttlMillis, User user) {
         //指定签名的时候使用的签名算法，也就是header那部分，jjwt已经将这部分内容封装好了。
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
@@ -80,7 +80,7 @@ public class TokenUtil {
     /**
      * 校验token
      */
-    public static boolean verify(String token, UserEntity user) {
+    public static boolean verify(String token, User user) {
         return parseJWT(token).get("password").equals(user.getPassword());
     }
 

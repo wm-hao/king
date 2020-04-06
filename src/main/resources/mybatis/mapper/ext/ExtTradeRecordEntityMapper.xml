@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="share.king.dao.TradeRecordEntityMapper">
+<mapper namespace="share.king.dao.TradeRecordMapper">
 
-    <select id="selectAll" resultType="share.king.entity.TradeRecordEntity">
+    <select id="selectAll" resultType="share.king.entity.TradeRecord">
         select *
         from trade_record
     </select>
 
-    <select id="selectByCondition" resultType="share.king.entity.TradeRecordEntity">
-        select * from trade_record where 1=1
+    <select id="selectByCondition" resultType="share.king.entity.TradeRecord">
+        select * from trade_record where 1=1 and user_id = #{userId}
         <if test="startDate != null">
             and buy_time > #{startDate,jdbcType=TIMESTAMP}
         </if>
@@ -31,10 +31,10 @@
         <if test="asc != null">
             <choose>
                 <when test='asc == "Y"'>
-                    order by create_date
+                    order by buy_time
                 </when>
                 <when test='asc == "N"'>
-                    order by create_date desc
+                    order by buy_time desc
                 </when>
                 <otherwise>
                 </otherwise>
@@ -101,4 +101,47 @@
             where id = #{item.id,jdbcType=INTEGER}
         </foreach>
     </update>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into trade_record
+        (id, name, alias, code, user_id, buy_time, buy_price, buy_count, sell_time, sell_price, open_price, close_price,
+        high_price, low_price, create_date, state)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.id,jdbcType=INTEGER}, #{item.name,jdbcType=VARCHAR}, #{item.alias,jdbcType=VARCHAR},
+            #{item.code,jdbcType=VARCHAR}, #{item.userId,jdbcType=INTEGER}, #{item.buyTime,jdbcType=TIMESTAMP},
+            #{item.buyPrice,jdbcType=INTEGER}, #{item.buyCount,jdbcType=INTEGER}, #{item.sellTime,jdbcType=TIMESTAMP},
+            #{item.sellPrice,jdbcType=INTEGER}, #{item.openPrice,jdbcType=INTEGER}, #{item.closePrice,jdbcType=INTEGER},
+            #{item.highPrice,jdbcType=INTEGER}, #{item.lowPrice,jdbcType=INTEGER},
+            #{item.createDate,jdbcType=TIMESTAMP},
+            #{item.state,jdbcType=INTEGER}
+            )
+        </foreach>
+    </insert>
+
+    <select id="getTotalGroupByDate" resultType="share.king.dto.trade.StatisticsDayBuy">
+        select  count(1) as total,day,DAYOFWEEK(day) as weekDay from (select name,code,buy_price,buy_time,sell_price,sell_time,date_format(buy_time, '%Y-%m-%d') as day from trade_record where user_id = #{userId}) t group by t.day order by day
+    </select>
+
+    <select id="getTotalByBuyCount" resultType="share.king.dto.trade.StatisticsDayBuy">
+         select total,code,name from (select count(1) total, code, name from trade_record where user_id = #{userId} group by code, name) t order by total desc
+    </select>
+
+    <select id="getTopBottomProfit" resultType="share.king.dto.trade.StatisticsDayBuy">
+        select (sum(sell_price) - sum(buy_price)) / 10 as profit, code, name
+        from trade_record
+        where user_id = #{userId} and sell_price is not null
+        and buy_price is not null
+        group by code, name
+        order by profit
+        <if test="desc != null">
+            desc
+        </if>
+    </select>
+
+    <select id="getProfitCompare" resultType="share.king.dto.trade.StatisticsDayBuy">
+        select count(1) as total ,profitState from (select profit, case when profit > 0 then 1 when profit = 0 then 0 else -1 end profitState
+from (select (sell_price - buy_price) as profit from trade_record where sell_price is not null and user_id = #{userId} order by profit) t ) t1 group by profitState order by profitState
+    </select>
 </mapper>

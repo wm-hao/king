@@ -1,20 +1,16 @@
 package share.king.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Date;
 
-public class BalanceEntity {
+public class Balance {
     private Integer id;
 
     private Integer userId;
 
     private Integer balance;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createDate;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date optDate;
 
     private Integer balanceTypeId;

@@ -3,8 +3,8 @@ package share.king.service.impl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import share.king.dao.UserEntityMapper;
-import share.king.entity.UserEntity;
+import share.king.dao.UserMapper;
+import share.king.entity.User;
 import share.king.service.interfaces.IUserSV;
 import share.king.util.Common;
 import share.king.util.TimeUtil;
@@ -16,15 +16,15 @@ import java.util.Date;
 public class UserSVImpl implements IUserSV {
 
     @Autowired
-    UserEntityMapper userEntityMapper;
+    UserMapper userMapper;
 
     @Override
     public int deleteByPrimaryKey(Integer id) {
-        return userEntityMapper.deleteByPrimaryKey(id);
+        return userMapper.deleteByPrimaryKey(id);
     }
 
     @Override
-    public int insert(UserEntity record) {
+    public int insert(User record) {
         Date currDate = new Date();
         record.setPassword(Utils.getMD5(record.getPassword().trim()));
         record.setCreateDate(currDate);
@@ -32,44 +32,44 @@ public class UserSVImpl implements IUserSV {
         record.setValidDate(currDate);
         record.setState(Common.USER_STATE_U);
         record.setExpireDate(TimeUtil.getTimestampByFormat("20991231235959", TimeUtil.yyyyMMddHHmmss));
-        return userEntityMapper.insert(record);
+        return userMapper.insert(record);
     }
 
     @Override
-    public int insertSelective(UserEntity record) {
+    public int insertSelective(User record) {
         record.setPassword(Utils.getMD5(record.getPassword()));
-        return userEntityMapper.insertSelective(record);
+        return userMapper.insertSelective(record);
     }
 
     @Override
-    public UserEntity selectByPrimaryKey(Integer id) {
-        return userEntityMapper.selectByPrimaryKey(id);
+    public User selectByPrimaryKey(Integer id) {
+        return userMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public int updateByPrimaryKeySelective(UserEntity record) {
+    public int updateByPrimaryKeySelective(User record) {
         record.setOptDate(new Date());
-        return userEntityMapper.updateByPrimaryKey(record);
+        return userMapper.updateByPrimaryKey(record);
     }
 
     @Override
-    public int updateByPrimaryKey(UserEntity record) {
-        return userEntityMapper.updateByPrimaryKeySelective(record);
+    public int updateByPrimaryKey(User record) {
+        return userMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
-    public UserEntity findByUserName(String userName) {
-        return userEntityMapper.findByUserName(userName);
+    public User findByUserName(String userName) {
+        return userMapper.findByUserName(userName);
     }
 
     @Override
-    public boolean validateUserInfo(UserEntity userEntity) {
-        if (userEntity != null && StringUtils.isNotBlank(userEntity.getUserName()) && StringUtils.isNoneBlank(userEntity.getUserName())) {
-            String password = userEntity.getPassword();
+    public boolean validateUserInfo(User user) {
+        if (user != null && StringUtils.isNotBlank(user.getUserName()) && StringUtils.isNoneBlank(user.getUserName())) {
+            String password = user.getPassword();
             String cipherText = Utils.getMD5(password);
-            UserEntity user = findByUserName(userEntity.getUserName());
-            if (user != null) {
-                return StringUtils.equals(cipherText, user.getPassword());
+            User dbUser = findByUserName(user.getUserName());
+            if (dbUser != null) {
+                return StringUtils.equals(cipherText, dbUser.getPassword());
             }
         }
         return false;

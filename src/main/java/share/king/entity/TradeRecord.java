@@ -3,8 +3,9 @@ package share.king.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
+import java.util.Objects;
 
-public class TradeRecordEntity {
+public class TradeRecord {
     private Integer id;
 
     private String name;
@@ -14,12 +15,14 @@ public class TradeRecordEntity {
     private String code;
 
     private Integer userId;
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date buyTime;
 
     private Integer buyPrice;
 
     private Integer buyCount;
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date sellTime;
 
@@ -33,14 +36,10 @@ public class TradeRecordEntity {
 
     private Integer lowPrice;
 
-    private String remark;
-
-    private String idea;
-
-    private String dayTrend;
-
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createDate;
+
+    private Integer state;
 
     public Integer getId() {
         return id;
@@ -154,35 +153,69 @@ public class TradeRecordEntity {
         this.lowPrice = lowPrice;
     }
 
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
-    }
-
-    public String getIdea() {
-        return idea;
-    }
-
-    public void setIdea(String idea) {
-        this.idea = idea == null ? null : idea.trim();
-    }
-
-    public String getDayTrend() {
-        return dayTrend;
-    }
-
-    public void setDayTrend(String dayTrend) {
-        this.dayTrend = dayTrend == null ? null : dayTrend.trim();
-    }
-
     public Date getCreateDate() {
         return createDate;
     }
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    @Override
+    public String toString() {
+        return "TradeRecord{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", alias='" + alias + '\'' +
+                ", code='" + code + '\'' +
+                ", userId=" + userId +
+                ", buyTime=" + buyTime +
+                ", buyPrice=" + buyPrice +
+                ", buyCount=" + buyCount +
+                ", sellTime=" + sellTime +
+                ", sellPrice=" + sellPrice +
+                ", openPrice=" + openPrice +
+                ", closePrice=" + closePrice +
+                ", highPrice=" + highPrice +
+                ", lowPrice=" + lowPrice +
+                ", createDate=" + createDate +
+                ", state=" + state +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TradeRecord that = (TradeRecord) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(alias, that.alias) &&
+                Objects.equals(code, that.code) &&
+                Objects.equals(userId, that.userId) &&
+                Objects.equals(buyTime, that.buyTime) &&
+                Objects.equals(buyPrice, that.buyPrice) &&
+                Objects.equals(buyCount, that.buyCount) &&
+                Objects.equals(sellTime, that.sellTime) &&
+                Objects.equals(sellPrice, that.sellPrice) &&
+                Objects.equals(openPrice, that.openPrice) &&
+                Objects.equals(closePrice, that.closePrice) &&
+                Objects.equals(highPrice, that.highPrice) &&
+                Objects.equals(lowPrice, that.lowPrice) &&
+                Objects.equals(createDate, that.createDate) &&
+                Objects.equals(state, that.state);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, alias, code, userId, buyTime, buyPrice, buyCount, sellTime, sellPrice, openPrice, closePrice, highPrice, lowPrice, createDate, state);
     }
 }

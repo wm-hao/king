@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="share.king.dao.BalanceChangeMapper">
+  <resultMap id="BaseResultMap" type="share.king.entity.BalanceChange">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="balance_id" jdbcType="INTEGER" property="balanceId" />
+    <result column="change_type" jdbcType="CHAR" property="changeType" />
+    <result column="balance_Before" jdbcType="INTEGER" property="balanceBefore" />
+    <result column="balance" jdbcType="INTEGER" property="balance" />
+    <result column="change_amount" jdbcType="INTEGER" property="changeAmount" />
+    <result column="origin_id" jdbcType="INTEGER" property="originId" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="opt_date" jdbcType="TIMESTAMP" property="optDate" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, balance_id, change_type, balance_Before, balance, change_amount, origin_id, create_date, 
+    remark, opt_date, state
+  </sql>
+  <select id="selectByExample" parameterType="share.king.entity.BalanceChangeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from balance_change
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from balance_change
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from balance_change
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="share.king.entity.BalanceChangeExample">
+    delete from balance_change
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="share.king.entity.BalanceChange">
+    insert into balance_change (id, balance_id, change_type, 
+      balance_Before, balance, change_amount, 
+      origin_id, create_date, remark, 
+      opt_date, state)
+    values (#{id,jdbcType=INTEGER}, #{balanceId,jdbcType=INTEGER}, #{changeType,jdbcType=CHAR}, 
+      #{balanceBefore,jdbcType=INTEGER}, #{balance,jdbcType=INTEGER}, #{changeAmount,jdbcType=INTEGER}, 
+      #{originId,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
+      #{optDate,jdbcType=TIMESTAMP}, #{state,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="share.king.entity.BalanceChange">
+    insert into balance_change
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="balanceId != null">
+        balance_id,
+      </if>
+      <if test="changeType != null">
+        change_type,
+      </if>
+      <if test="balanceBefore != null">
+        balance_Before,
+      </if>
+      <if test="balance != null">
+        balance,
+      </if>
+      <if test="changeAmount != null">
+        change_amount,
+      </if>
+      <if test="originId != null">
+        origin_id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="optDate != null">
+        opt_date,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="balanceId != null">
+        #{balanceId,jdbcType=INTEGER},
+      </if>
+      <if test="changeType != null">
+        #{changeType,jdbcType=CHAR},
+      </if>
+      <if test="balanceBefore != null">
+        #{balanceBefore,jdbcType=INTEGER},
+      </if>
+      <if test="balance != null">
+        #{balance,jdbcType=INTEGER},
+      </if>
+      <if test="changeAmount != null">
+        #{changeAmount,jdbcType=INTEGER},
+      </if>
+      <if test="originId != null">
+        #{originId,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="optDate != null">
+        #{optDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="share.king.entity.BalanceChangeExample" resultType="java.lang.Long">
+    select count(*) from balance_change
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update balance_change
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.balanceId != null">
+        balance_id = #{record.balanceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.changeType != null">
+        change_type = #{record.changeType,jdbcType=CHAR},
+      </if>
+      <if test="record.balanceBefore != null">
+        balance_Before = #{record.balanceBefore,jdbcType=INTEGER},
+      </if>
+      <if test="record.balance != null">
+        balance = #{record.balance,jdbcType=INTEGER},
+      </if>
+      <if test="record.changeAmount != null">
+        change_amount = #{record.changeAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.originId != null">
+        origin_id = #{record.originId,jdbcType=INTEGER},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optDate != null">
+        opt_date = #{record.optDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update balance_change
+    set id = #{record.id,jdbcType=INTEGER},
+      balance_id = #{record.balanceId,jdbcType=INTEGER},
+      change_type = #{record.changeType,jdbcType=CHAR},
+      balance_Before = #{record.balanceBefore,jdbcType=INTEGER},
+      balance = #{record.balance,jdbcType=INTEGER},
+      change_amount = #{record.changeAmount,jdbcType=INTEGER},
+      origin_id = #{record.originId,jdbcType=INTEGER},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      opt_date = #{record.optDate,jdbcType=TIMESTAMP},
+      state = #{record.state,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="share.king.entity.BalanceChange">
+    update balance_change
+    <set>
+      <if test="balanceId != null">
+        balance_id = #{balanceId,jdbcType=INTEGER},
+      </if>
+      <if test="changeType != null">
+        change_type = #{changeType,jdbcType=CHAR},
+      </if>
+      <if test="balanceBefore != null">
+        balance_Before = #{balanceBefore,jdbcType=INTEGER},
+      </if>
+      <if test="balance != null">
+        balance = #{balance,jdbcType=INTEGER},
+      </if>
+      <if test="changeAmount != null">
+        change_amount = #{changeAmount,jdbcType=INTEGER},
+      </if>
+      <if test="originId != null">
+        origin_id = #{originId,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="optDate != null">
+        opt_date = #{optDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="share.king.entity.BalanceChange">
+    update balance_change
+    set balance_id = #{balanceId,jdbcType=INTEGER},
+      change_type = #{changeType,jdbcType=CHAR},
+      balance_Before = #{balanceBefore,jdbcType=INTEGER},
+      balance = #{balance,jdbcType=INTEGER},
+      change_amount = #{changeAmount,jdbcType=INTEGER},
+      origin_id = #{originId,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      opt_date = #{optDate,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

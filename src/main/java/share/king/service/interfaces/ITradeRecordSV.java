@@ -1,7 +1,8 @@
 package share.king.service.interfaces;
 
 import com.github.pagehelper.PageInfo;
-import share.king.entity.TradeRecordEntity;
+import share.king.dto.trade.StatisticsDayBuy;
+import share.king.entity.TradeRecord;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -10,21 +11,35 @@ public interface ITradeRecordSV {
 
     int deleteByPrimaryKey(Integer id);
 
-    int insert(TradeRecordEntity record);
+    int insert(TradeRecord record);
 
-    int insertSelective(TradeRecordEntity record);
+    int insertSelective(TradeRecord record);
 
-    TradeRecordEntity selectByPrimaryKey(Integer id);
+    TradeRecord selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(TradeRecordEntity record);
+    int updateByPrimaryKeySelective(TradeRecord record);
 
-    int updateByPrimaryKey(TradeRecordEntity record);
+    int updateByPrimaryKey(TradeRecord record);
 
-    List<TradeRecordEntity> selectAll();
+    List<TradeRecord> selectAll();
 
-    PageInfo<TradeRecordEntity> selectByPage(int pageNum, int pageSize);
+    PageInfo<TradeRecord> selectByPage(int pageNum, int pageSize);
 
-    PageInfo<TradeRecordEntity> selectByCondition(int pageNum, int pageSize, Timestamp startDate, Timestamp endDate, String profit, String asc);
+    PageInfo<TradeRecord> selectByCondition(Integer userId, int pageNum, int pageSize, Timestamp startDate, Timestamp endDate, String profit, String asc);
 
-    int updateBatch(List<TradeRecordEntity> tradeRecordEntities);
+    int updateBatch(List<TradeRecord> tradeRecordEntities);
+
+    int insertBatch(List<TradeRecord> tradeRecords, Integer userId);
+
+    List<StatisticsDayBuy> getTotalGroupByDate(Integer userId);
+
+    List<StatisticsDayBuy> getTotalByBuyCountAll(Integer userId);
+
+    List<StatisticsDayBuy> getTopBottomProfitAll(Integer userId, String desc);
+
+    PageInfo<StatisticsDayBuy> getTopBottomProfit(int pageNum, int pageSize, Integer userId, String desc);
+
+    PageInfo<StatisticsDayBuy> getTotalByBuyCount(int pageNum, int pageSize, Integer userId);
+
+    List<StatisticsDayBuy> getProfitCompare(int userId);
 }
