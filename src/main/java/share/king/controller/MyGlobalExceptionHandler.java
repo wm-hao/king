@@ -11,7 +11,7 @@ import share.king.util.GateWayUtil;
 public class MyGlobalExceptionHandler {
     @ExceptionHandler(value = {BaseException.class, RuntimeException.class})
     @ResponseBody
-    public Response customException(BaseException e) {
+    public Response customException(Exception e) {
         return GateWayUtil.returnFailResponse(e.getMessage());
     }
 

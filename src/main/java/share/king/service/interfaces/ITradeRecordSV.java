@@ -1,6 +1,7 @@
 package share.king.service.interfaces;
 
 import com.github.pagehelper.PageInfo;
+import share.king.dto.TradeRecordQry;
 import share.king.dto.trade.StatisticsDayBuy;
 import share.king.entity.TradeRecord;
 
@@ -25,7 +26,7 @@ public interface ITradeRecordSV {
 
     PageInfo<TradeRecord> selectByPage(int pageNum, int pageSize);
 
-    PageInfo<TradeRecord> selectByCondition(Integer userId, int pageNum, int pageSize, Timestamp startDate, Timestamp endDate, String profit, String asc);
+    PageInfo<TradeRecord> selectByCondition(TradeRecordQry tradeRecordQry, int pageNum, int pageSize, Timestamp startDate, Timestamp endDate);
 
     int updateBatch(List<TradeRecord> tradeRecordEntities);
 

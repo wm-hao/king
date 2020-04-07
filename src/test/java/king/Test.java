@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import share.king.MainApplication;
 import share.king.dto.Response;
+import share.king.dto.TradeRecordQry;
 import share.king.dto.trade.StatisticsDayBuy;
 import share.king.entity.TradeRecord;
 import share.king.entity.User;
@@ -119,7 +120,9 @@ public class Test {
     @org.junit.Test
     public void selectByCondition() {
         Timestamp startDate = new Timestamp(TimeUtil.getTimestampByFormat("20200330", "yyyyMMdd").getTime());
-        PageInfo<TradeRecord> pageInfo = tradeRecordSV.selectByCondition(1, 10, 20, null, null, "", null);
+        TradeRecordQry tradeRecordQry = new TradeRecordQry();
+        tradeRecordQry.setUserId(1);
+        PageInfo<TradeRecord> pageInfo = tradeRecordSV.selectByCondition(tradeRecordQry, 1, 10, null, null);
         List<TradeRecord> tradeRecordEntities = pageInfo.getList();
         log.error("长度:" + tradeRecordEntities.size());
         for (TradeRecord tradeRecord : tradeRecordEntities) {

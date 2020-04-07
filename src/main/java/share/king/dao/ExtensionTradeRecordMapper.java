@@ -11,7 +11,7 @@ public interface ExtensionTradeRecordMapper {
 
     List<TradeRecord> selectAll();
 
-    List<TradeRecord> selectByCondition(@Param("userId") Integer userId,@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate, @Param("profit") String profit, @Param("asc") String asc);
+    List<TradeRecord> selectByCondition(@Param("code") String code, @Param("name") String name, @Param("alias") String alias, @Param("userId") Integer userId,@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate, @Param("profit") String profit, @Param("asc") String asc);
 
     int updateBatch(@Param("list") List<TradeRecord> tradeRecordEntities);
 

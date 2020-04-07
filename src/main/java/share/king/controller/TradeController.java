@@ -74,7 +74,7 @@ public class TradeController {
         if (StringUtils.isNoneBlank(tradeRecordQry.getEndDate())) {
             endDate = TimeUtil.getTimestampByFormat(tradeRecordQry.getEndDate(), TimeUtil.yyyyMMdd);
         }
-        PageInfo<TradeRecord> pageInfo = tradeRecordSV.selectByCondition(tradeRecordQry.getUserId(), pageNum, pageSize, startDate, endDate, tradeRecordQry.getProfit(), tradeRecordQry.getAsc());
+        PageInfo<TradeRecord> pageInfo = tradeRecordSV.selectByCondition(tradeRecordQry, pageNum, pageSize, startDate, endDate);
         Response response = GateWayUtil.returnSuccessResponse("查询成功");
         response.setRows(pageInfo.getList());
         response.setTotal(pageInfo.getTotal());

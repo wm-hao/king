@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import share.king.dao.TradeRecordMapper;
+import share.king.dto.TradeRecordQry;
 import share.king.dto.trade.StatisticsDayBuy;
 import share.king.entity.TradeRecord;
 import share.king.service.interfaces.ITradeRecordSV;
@@ -66,9 +67,9 @@ public class TradeRecordSVImpl implements ITradeRecordSV {
     }
 
     @Override
-    public PageInfo<TradeRecord> selectByCondition(Integer userId, int pageNum, int pageSize, Timestamp startDate, Timestamp endDate, String profit, String asc) {
+    public PageInfo<TradeRecord> selectByCondition(TradeRecordQry tradeRecordQry, int pageNum, int pageSize, Timestamp startDate, Timestamp endDate) {
         PageHelper.startPage(pageNum, pageSize);
-        return new PageInfo<>(tradeRecordMapper.selectByCondition(userId, startDate, endDate, profit, asc));
+        return new PageInfo<>(tradeRecordMapper.selectByCondition(tradeRecordQry.getCode(), tradeRecordQry.getName(), tradeRecordQry.getAlias(), tradeRecordQry.getUserId(), startDate, endDate, tradeRecordQry.getProfit(), tradeRecordQry.getAsc()));
     }
 
     @Override

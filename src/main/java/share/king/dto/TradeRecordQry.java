@@ -6,6 +6,10 @@ public class TradeRecordQry extends QryParams {
     private String profit;
     private String asc;
     private Integer userId;
+    private String code;
+    private String name;
+    private String alias;
+
 
     public String getStartDate() {
         return startDate;
@@ -47,6 +51,30 @@ public class TradeRecordQry extends QryParams {
         this.userId = userId;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
     @Override
     public String toString() {
         return "TradeRecordQry{" +
@@ -55,6 +83,9 @@ public class TradeRecordQry extends QryParams {
                 ", profit='" + profit + '\'' +
                 ", asc='" + asc + '\'' +
                 ", userId=" + userId +
+                ", code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", alias='" + alias + '\'' +
                 '}';
     }
 }

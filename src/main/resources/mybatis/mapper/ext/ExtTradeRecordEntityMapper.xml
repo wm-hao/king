@@ -9,13 +9,16 @@
 
     <select id="selectByCondition" resultType="share.king.entity.TradeRecord">
         select * from trade_record where 1=1 and user_id = #{userId}
+        <if test='code != null and code != ""'>
+            and code = #{code}
+        </if>
         <if test="startDate != null">
             and buy_time > #{startDate,jdbcType=TIMESTAMP}
         </if>
         <if test="endDate != null">
             and #{endDate,jdbcType=TIMESTAMP} > buy_time
         </if>
-        <if test="profit != null">
+        <if test='profit != null and profit != ""'>
             <choose>
                 <when test='profit == "Y"'>
                     and sell_price > buy_price
@@ -27,6 +30,12 @@
 
                 </otherwise>
             </choose>
+        </if>
+        <if test='name != null and name != ""'>
+            and name like  CONCAT('%',#{name},'%')
+        </if>
+        <if test='alias != null and alias != ""'>
+            and alias like  CONCAT('%',#{alias},'%')
         </if>
         <if test="asc != null">
             <choose>
