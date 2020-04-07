@@ -188,9 +188,9 @@ public class TradeController {
             return GateWayUtil.returnFailResponse("入参不能为空");
         }
         PageInfo<StatisticsDayBuy> top10CountPage = tradeRecordSV.getTotalByBuyCount(1, 10, userId);
-        PageInfo<StatisticsDayBuy> top10 = tradeRecordSV.getTopBottomProfit(1, 10, userId, "Y");
+        PageInfo<StatisticsDayBuy> top10 = tradeRecordSV.getTopBottomProfit(1, 10, userId, null, null, "Y");
         List<StatisticsDayBuy> top10List = top10.getList();
-        PageInfo<StatisticsDayBuy> bottom10 = tradeRecordSV.getTopBottomProfit(1, 10, userId, null);
+        PageInfo<StatisticsDayBuy> bottom10 = tradeRecordSV.getTopBottomProfit(1, 10, userId, null, null, null);
         List<StatisticsDayBuy> profitStateList = tradeRecordSV.getProfitCompare(userId);
         List<StatisticsDayBuy> bottom10List = bottom10.getList();
         List<String> top10Name = new ArrayList<>();
@@ -241,6 +241,40 @@ public class TradeController {
         rows.add(top10CountName);
         rows.add(top10Count);
         rows.add(profit);
+        return response;
+    }
+
+    @GetMapping("profitAll")
+    public Response profitAll(@RequestParam("userId") Integer userId) {
+        if (userId == null) {
+            return GateWayUtil.returnFailResponse("入参不能为空");
+        }
+        TradeRecordQry qry = new TradeRecordQry();
+        qry.setUserId(userId);
+        List<StatisticsDayBuy> buys = tradeRecordSV.getTopBottomProfitAll(qry, null);
+        List rows = new ArrayList();
+        List<String> names = new ArrayList<>();
+        List<Double> profits = new ArrayList<>();
+        for (StatisticsDayBuy buy : buys) {
+            names.add(buy.getName());
+            profits.add(buy.getProfit());
+        }
+        rows.add(names);
+        rows.add(profits);
+        Response response = GateWayUtil.returnSuccessResponse("查询成功");
+        response.setRows(rows);
+        return response;
+    }
+
+    @PostMapping("profit")
+    public Response profit(@RequestBody TradeRecordQry qry) {
+        if (qry.getUserId() == null) {
+            return GateWayUtil.returnFailResponse("入参不能为空");
+        }
+        PageInfo<StatisticsDayBuy> pageInfo = tradeRecordSV.getTopBottomProfit(qry.getPageNum(), qry.getPageSize(), qry.getUserId(), qry.getName(), qry.getCode(), qry.getAsc());
+        Response response = GateWayUtil.returnSuccessResponse("查询成功");
+        response.setTotal(pageInfo.getTotal());
+        response.setRows(pageInfo.getList());
         return response;
     }
 }

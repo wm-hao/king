@@ -108,14 +108,14 @@ public class TradeRecordSVImpl implements ITradeRecordSV {
     }
 
     @Override
-    public List<StatisticsDayBuy> getTopBottomProfitAll(Integer userId, String desc) {
-        return tradeRecordMapper.getTopBottomProfit(userId, desc);
+    public List<StatisticsDayBuy> getTopBottomProfitAll(TradeRecordQry tradeRecordQry, String desc) {
+        return tradeRecordMapper.getTopBottomProfit(tradeRecordQry.getUserId(), tradeRecordQry.getName(), tradeRecordQry.getCode(), desc);
     }
 
     @Override
-    public PageInfo<StatisticsDayBuy> getTopBottomProfit(int pageNum, int pageSize, Integer userId, String desc) {
+    public PageInfo<StatisticsDayBuy> getTopBottomProfit(int pageNum, int pageSize, Integer userId, String name, String code, String desc) {
         PageHelper.startPage(pageNum, pageSize);
-        return new PageInfo<>(tradeRecordMapper.getTopBottomProfit(userId, desc));
+        return new PageInfo<>(tradeRecordMapper.getTopBottomProfit(userId, name, code, desc));
     }
 
     @Override

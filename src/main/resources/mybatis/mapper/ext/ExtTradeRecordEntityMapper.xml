@@ -141,10 +141,16 @@
         select (sum(sell_price) - sum(buy_price)) / 10 as profit, code, name
         from trade_record
         where user_id = #{userId} and sell_price is not null
+        <if test='code != null and code != ""'>
+            and code = #{code}
+        </if>
+        <if test='name != null and name != ""'>
+            and name like  CONCAT('%',#{name},'%')
+        </if>
         and buy_price is not null
         group by code, name
         order by profit
-        <if test="desc != null">
+        <if test='desc != null and desc != ""'>
             desc
         </if>
     </select>

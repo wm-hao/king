@@ -21,7 +21,7 @@ public interface ExtensionTradeRecordMapper {
 
     List<StatisticsDayBuy> getTotalByBuyCount(@Param("userId") Integer userId);
 
-    List<StatisticsDayBuy> getTopBottomProfit(@Param("userId") Integer userId, @Param("desc") String desc);
+    List<StatisticsDayBuy> getTopBottomProfit(@Param("userId") Integer userId, @Param("name") String name, @Param("code") String code, @Param("desc") String desc);
 
     List<StatisticsDayBuy> getProfitCompare(@Param("userId") Integer userId);
 

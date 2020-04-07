@@ -36,9 +36,9 @@ public interface ITradeRecordSV {
 
     List<StatisticsDayBuy> getTotalByBuyCountAll(Integer userId);
 
-    List<StatisticsDayBuy> getTopBottomProfitAll(Integer userId, String desc);
+    List<StatisticsDayBuy> getTopBottomProfitAll(TradeRecordQry tradeRecordQry, String desc);
 
-    PageInfo<StatisticsDayBuy> getTopBottomProfit(int pageNum, int pageSize, Integer userId, String desc);
+    PageInfo<StatisticsDayBuy> getTopBottomProfit(int pageNum, int pageSize, Integer userId, String name, String code, String desc);
 
     PageInfo<StatisticsDayBuy> getTotalByBuyCount(int pageNum, int pageSize, Integer userId);
 

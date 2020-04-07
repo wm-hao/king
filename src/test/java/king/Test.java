@@ -193,7 +193,7 @@ public class Test {
 
     @org.junit.Test
     public void testTop() {
-        PageInfo<StatisticsDayBuy> pageInfo = tradeRecordSV.getTopBottomProfit(1, 10, 1, "Y");
+        PageInfo<StatisticsDayBuy> pageInfo = tradeRecordSV.getTopBottomProfit(1, 10, 1, null, null, "Y");
         List<StatisticsDayBuy> buys = pageInfo.getList();
         log.error(buys.size());
         List<StatisticsDayBuy> compare = tradeRecordSV.getProfitCompare(1);

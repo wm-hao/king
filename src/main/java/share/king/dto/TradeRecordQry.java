@@ -9,6 +9,8 @@ public class TradeRecordQry extends QryParams {
     private String code;
     private String name;
     private String alias;
+    private int pageNum;
+    private int pageSize;
 
 
     public String getStartDate() {
@@ -73,6 +75,26 @@ public class TradeRecordQry extends QryParams {
 
     public void setAlias(String alias) {
         this.alias = alias;
+    }
+
+    @Override
+    public int getPageNum() {
+        return pageNum;
+    }
+
+    @Override
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    @Override
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    @Override
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 
     @Override
