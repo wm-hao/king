@@ -284,15 +284,24 @@ public class TradeController {
             return GateWayUtil.returnFailResponse("入参不能为空");
         }
         PageInfo<StatisticsDayBuy> statisticsDayBuys = tradeRecordSV.getKeepDurationPage(qry.getPageNum(), qry.getPageSize(), qry.getUserId(), qry.getName(), qry.getCode(), qry.getAsc());
-        List<StatisticsDayBuy> buys = null;
+        List<StatisticsDayBuy> buys = statisticsDayBuys.getList();
+        List result = null;
         if (StringUtils.isNoneBlank(qry.getDataType()) && qry.getDataType().equals("1")) {
-            
+            result = new ArrayList();
+            List<String> names = new ArrayList<>();
+            List<Double> keeps = new ArrayList<>();
+            for (StatisticsDayBuy buy : buys) {
+                names.add(buy.getName());
+                keeps.add(buy.getKeep());
+            }
+            result.add(names);
+            result.add(keeps);
         } else {
-            buys = statisticsDayBuys.getList();
+            result = buys;
         }
         Response response = GateWayUtil.returnSuccessResponse("查询成功");
         response.setTotal(statisticsDayBuys.getTotal());
-        response.setRows(buys);
+        response.setRows(result);
         return response;
     }
 }
