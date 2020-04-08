@@ -43,4 +43,8 @@ public interface ITradeRecordSV {
     PageInfo<StatisticsDayBuy> getTotalByBuyCount(int pageNum, int pageSize, Integer userId);
 
     List<StatisticsDayBuy> getProfitCompare(int userId);
+
+    List<StatisticsDayBuy> getKeepDurationAll(Integer userId, String name, String code, String desc);
+
+    PageInfo<StatisticsDayBuy> getKeepDurationPage(int pageNum, int pageSize, Integer userId, String name, String code, String desc);
 }

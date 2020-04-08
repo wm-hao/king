@@ -277,4 +277,22 @@ public class TradeController {
         response.setRows(pageInfo.getList());
         return response;
     }
+
+    @PostMapping("keep")
+    public Response keep(@RequestBody TradeRecordQry qry) {
+        if (qry.getUserId() == null) {
+            return GateWayUtil.returnFailResponse("入参不能为空");
+        }
+        PageInfo<StatisticsDayBuy> statisticsDayBuys = tradeRecordSV.getKeepDurationPage(qry.getPageNum(), qry.getPageSize(), qry.getUserId(), qry.getName(), qry.getCode(), qry.getAsc());
+        List<StatisticsDayBuy> buys = null;
+        if (StringUtils.isNoneBlank(qry.getDataType()) && qry.getDataType().equals("1")) {
+            
+        } else {
+            buys = statisticsDayBuys.getList();
+        }
+        Response response = GateWayUtil.returnSuccessResponse("查询成功");
+        response.setTotal(statisticsDayBuys.getTotal());
+        response.setRows(buys);
+        return response;
+    }
 }

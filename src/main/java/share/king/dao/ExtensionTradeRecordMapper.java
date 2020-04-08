@@ -25,4 +25,6 @@ public interface ExtensionTradeRecordMapper {
 
     List<StatisticsDayBuy> getProfitCompare(@Param("userId") Integer userId);
 
+    List<StatisticsDayBuy> getKeepDuration(@Param("userId") Integer userId, @Param("name") String name, @Param("code") String code, @Param("desc") String desc);
+
 }

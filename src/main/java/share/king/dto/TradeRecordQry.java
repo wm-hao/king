@@ -11,6 +11,7 @@ public class TradeRecordQry extends QryParams {
     private String alias;
     private int pageNum;
     private int pageSize;
+    private String dataType;
 
 
     public String getStartDate() {
@@ -97,6 +98,14 @@ public class TradeRecordQry extends QryParams {
         this.pageSize = pageSize;
     }
 
+    public String getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
+    }
+
     @Override
     public String toString() {
         return "TradeRecordQry{" +
@@ -108,6 +117,9 @@ public class TradeRecordQry extends QryParams {
                 ", code='" + code + '\'' +
                 ", name='" + name + '\'' +
                 ", alias='" + alias + '\'' +
+                ", pageNum=" + pageNum +
+                ", pageSize=" + pageSize +
+                ", dataType='" + dataType + '\'' +
                 '}';
     }
 }

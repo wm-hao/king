@@ -11,6 +11,7 @@ public class StatisticsDayBuy {
     private String code;
     private double profit;
     private int profitState;
+    private double keep;
 
     public int getTotal() {
         return total;
@@ -76,20 +77,12 @@ public class StatisticsDayBuy {
         this.code = code;
     }
 
-    @Override
-    public String toString() {
-        return "StatisticsDayBuy{" +
-                "total=" + total +
-                ", day='" + day + '\'' +
-                ", weekDayDesc='" + weekDayDesc + '\'' +
-                ", weekDay=" + weekDay +
-                ", year='" + year + '\'' +
-                ", month='" + month + '\'' +
-                ", name='" + name + '\'' +
-                ", code='" + code + '\'' +
-                ", profit=" + profit +
-                ", profitState=" + profitState +
-                '}';
+    public double getKeep() {
+        return keep;
+    }
+
+    public void setKeep(double keep) {
+        this.keep = keep;
     }
 
     public double getProfit() {
@@ -106,5 +99,22 @@ public class StatisticsDayBuy {
 
     public void setProfitState(int profitState) {
         this.profitState = profitState;
+    }
+
+    @Override
+    public String toString() {
+        return "StatisticsDayBuy{" +
+                "total=" + total +
+                ", day='" + day + '\'' +
+                ", weekDayDesc='" + weekDayDesc + '\'' +
+                ", weekDay=" + weekDay +
+                ", year='" + year + '\'' +
+                ", month='" + month + '\'' +
+                ", name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", profit=" + profit +
+                ", profitState=" + profitState +
+                ", keep=" + keep +
+                '}';
     }
 }

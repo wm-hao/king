@@ -32,10 +32,10 @@
             </choose>
         </if>
         <if test='name != null and name != ""'>
-            and name like  CONCAT('%',#{name},'%')
+            and name like CONCAT('%',#{name},'%')
         </if>
         <if test='alias != null and alias != ""'>
-            and alias like  CONCAT('%',#{alias},'%')
+            and alias like CONCAT('%',#{alias},'%')
         </if>
         <if test="asc != null">
             <choose>
@@ -145,7 +145,7 @@
             and code = #{code}
         </if>
         <if test='name != null and name != ""'>
-            and name like  CONCAT('%',#{name},'%')
+            and name like CONCAT('%',#{name},'%')
         </if>
         and buy_price is not null
         group by code, name
@@ -157,6 +157,24 @@
 
     <select id="getProfitCompare" resultType="share.king.dto.trade.StatisticsDayBuy">
         select count(1) as total ,profitState from (select profit, case when profit > 0 then 1 when profit = 0 then 0 else -1 end profitState
-from (select (sell_price - buy_price) as profit from trade_record where sell_price is not null and user_id = #{userId} order by profit) t ) t1 group by profitState order by profitState
+        from (select (sell_price - buy_price) as profit from trade_record where sell_price is not null and user_id = #{userId} order by profit) t ) t1 group by profitState order by profitState
+    </select>
+
+    <select id="getKeepDuration" resultType="share.king.dto.trade.StatisticsDayBuy">
+        select name, code, time_to_sec(timediff(sell_time, buy_time)) / 60 / 60 / 24 as keep
+        from trade_record
+        where sell_time is not null
+        and buy_time is not null
+        and user_id = #{userId}
+        <if test='name != null and name != ""'>
+            and name like CONCAT('%',#{name},'%')
+        </if>
+        <if test='code != null and code != ""'>
+            and code = #{code}
+        </if>
+        order by keep
+        <if test='desc != null and desc != ""'>
+            desc
+        </if>
     </select>
 </mapper>

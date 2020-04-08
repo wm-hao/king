@@ -129,5 +129,16 @@ public class TradeRecordSVImpl implements ITradeRecordSV {
         return tradeRecordMapper.getProfitCompare(userId);
     }
 
+    @Override
+    public List<StatisticsDayBuy> getKeepDurationAll(Integer userId, String name, String code, String desc) {
+        return tradeRecordMapper.getKeepDuration(userId, name, code, desc);
+    }
+
+    @Override
+    public PageInfo<StatisticsDayBuy> getKeepDurationPage(int pageNum, int pageSize, Integer userId, String name, String code, String desc) {
+        PageHelper.startPage(pageNum, pageSize);
+        return new PageInfo<>(tradeRecordMapper.getKeepDuration(userId, name, code, desc));
+    }
+
 
 }
