@@ -7,6 +7,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
+import share.king.service.interfaces.IUserSV;
 import share.king.util.GateWayUtil;
 import share.king.util.RedisUtil;
 import share.king.util.TokenUtil;
@@ -22,6 +23,9 @@ public class TokenInterceptor implements HandlerInterceptor {
     @Autowired
     RedisUtil redisUtil;
 
+    @Autowired
+    IUserSV userSV;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader("token");
@@ -35,6 +39,10 @@ public class TokenInterceptor implements HandlerInterceptor {
         String userName = TokenUtil.getUserName(token);
         if (StringUtils.isBlank(userName)) {
             response.getWriter().println(JSON.toJSONString(GateWayUtil.returnFailResponse("token信息有误")));
+            return false;
+        }
+        if (userSV.findByUserName(userName) == null) {
+            response.getWriter().println(JSON.toJSONString(GateWayUtil.returnFailResponse("token对应的用户不存在")));
             return false;
         }
         Object object = redisUtil.get(userName);

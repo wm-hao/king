@@ -157,7 +157,7 @@
 
     <select id="getProfitCompare" resultType="share.king.dto.trade.StatisticsDayBuy">
         select count(1) as total ,profitState from (select profit, case when profit > 0 then 1 when profit = 0 then 0 else -1 end profitState
-        from (select (sell_price - buy_price) as profit from trade_record where sell_price is not null and user_id = #{userId} order by profit) t ) t1 group by profitState order by profitState
+        from (select (sell_price - buy_price) as profit from trade_record where sell_price is not null and sell_time is not null and  user_id = #{userId} order by profit) t ) t1 group by profitState order by profitState
     </select>
 
     <select id="getKeepDuration" resultType="share.king.dto.trade.StatisticsDayBuy">

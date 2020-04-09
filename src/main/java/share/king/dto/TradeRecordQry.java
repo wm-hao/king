@@ -1,34 +1,15 @@
 package share.king.dto;
 
 public class TradeRecordQry extends QryParams {
-    private String startDate;
-    private String endDate;
+
     private String profit;
-    private String asc;
-    private Integer userId;
+
     private String code;
     private String name;
     private String alias;
-    private int pageNum;
-    private int pageSize;
     private String dataType;
 
 
-    public String getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
 
     public String getProfit() {
         return profit;
@@ -38,21 +19,7 @@ public class TradeRecordQry extends QryParams {
         this.profit = profit;
     }
 
-    public String getAsc() {
-        return asc;
-    }
 
-    public void setAsc(String asc) {
-        this.asc = asc;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
 
     public String getCode() {
         return code;
@@ -78,25 +45,6 @@ public class TradeRecordQry extends QryParams {
         this.alias = alias;
     }
 
-    @Override
-    public int getPageNum() {
-        return pageNum;
-    }
-
-    @Override
-    public void setPageNum(int pageNum) {
-        this.pageNum = pageNum;
-    }
-
-    @Override
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    @Override
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
 
     public String getDataType() {
         return dataType;
@@ -108,17 +56,11 @@ public class TradeRecordQry extends QryParams {
 
     @Override
     public String toString() {
-        return "TradeRecordQry{" +
-                "startDate='" + startDate + '\'' +
-                ", endDate='" + endDate + '\'' +
+        return "TradeRecordQry{" + super.toString() +
                 ", profit='" + profit + '\'' +
-                ", asc='" + asc + '\'' +
-                ", userId=" + userId +
                 ", code='" + code + '\'' +
                 ", name='" + name + '\'' +
                 ", alias='" + alias + '\'' +
-                ", pageNum=" + pageNum +
-                ", pageSize=" + pageSize +
                 ", dataType='" + dataType + '\'' +
                 '}';
     }

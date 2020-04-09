@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="share.king.dao.DailyMapper">
+    <select id="findAll" resultType="share.king.entity.Daily">
+        select * from daily where user_id = #{userId}
+        <if test="startDate != null">
+            and create_date > startDate
+        </if>
+        <if test="endDate != null">
+            and endDate > create_date
+        </if>
+        <if test='content != null and content != ""'>
+            and idea like CONCAT('%',#{content},'%')
+        </if>
+        order by opt_date
+        <if test='desc != null and desc != ""'>
+            desc
+        </if>
+    </select>
 </mapper>

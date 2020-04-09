@@ -1,14 +1,18 @@
 package share.king.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Daily {
     private Integer id;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createDate;
 
     private String month;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date optDate;
 
     private Integer state;
