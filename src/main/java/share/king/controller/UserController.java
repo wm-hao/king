@@ -52,8 +52,14 @@ public class UserController {
                     if (StringUtils.isNotBlank(user.getPassword())) {
                         String password = user.getPassword();
                         String cipherText = Utils.getMD5(password);
+                        String token;
                         if (StringUtils.equals(cipherText, dbUser.getPassword())) {
-                            String token = TokenUtil.createJWT(-1, dbUser);
+                            Object existToken = redisUtil.get(dbUser.getUserName());
+                            if (existToken != null && StringUtils.isNotBlank(existToken.toString())) {
+                                    token = existToken.toString();
+                            } else {
+                                token = TokenUtil.createJWT(-1, dbUser);
+                            }
                             returnData = dbUser.getId() + "-" + token;
                             redisUtil.set(dbUser.getUserName(), token, tokenExpireHours * 60 * 60);
                             success = true;
