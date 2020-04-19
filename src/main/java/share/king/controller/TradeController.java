@@ -289,10 +289,11 @@ public class TradeController {
         if (StringUtils.isNoneBlank(qry.getDataType()) && qry.getDataType().equals("1")) {
             result = new ArrayList();
             List<String> names = new ArrayList<>();
-            List<Double> keeps = new ArrayList<>();
+            List<Integer> keeps = new ArrayList<>();
             for (StatisticsDayBuy buy : buys) {
                 names.add(buy.getName());
-                keeps.add(buy.getKeep());
+                double keep = buy.getKeep() > 1 ? buy.getKeep() : 1;
+                keeps.add((int) keep);
             }
             result.add(names);
             result.add(keeps);
