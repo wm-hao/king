@@ -12,10 +12,11 @@ import share.king.MainApplication;
 import share.king.dto.Response;
 import share.king.dto.TradeRecordQry;
 import share.king.dto.trade.StatisticsDayBuy;
+import share.king.entity.Balance;
 import share.king.entity.TradeRecord;
 import share.king.entity.User;
 import share.king.exception.BaseException;
-import share.king.service.interfaces.IMailSV;
+import share.king.service.interfaces.IBalanceSV;
 import share.king.service.interfaces.ITradeRecordSV;
 import share.king.service.interfaces.IUserSV;
 import share.king.util.*;
@@ -37,8 +38,9 @@ public class Test {
     private ITradeRecordSV tradeRecordSV;
     @Autowired
     private IUserSV userSV;
+
     @Autowired
-    IMailSV mailSV;
+    private IBalanceSV balanceSV;
 
 
     @org.junit.Test
@@ -121,7 +123,7 @@ public class Test {
     public void selectByCondition() {
         Timestamp startDate = new Timestamp(TimeUtil.getTimestampByFormat("20200330", "yyyyMMdd").getTime());
         TradeRecordQry tradeRecordQry = new TradeRecordQry();
-        tradeRecordQry.setUserId(1);
+        tradeRecordQry.setUserId(5);
         PageInfo<TradeRecord> pageInfo = tradeRecordSV.selectByCondition(tradeRecordQry, 1, 10, null, null);
         List<TradeRecord> tradeRecordEntities = pageInfo.getList();
         log.error("长度:" + tradeRecordEntities.size());
@@ -200,6 +202,14 @@ public class Test {
         for (StatisticsDayBuy buy : compare) {
             log.error(buy);
         }
+    }
+
+    @org.junit.Test
+    public void testSaveBalance() throws Exception {
+        Balance balance = new Balance();
+        balance.setUserId(1);
+        balance.setBalance(1000);
+        balanceSV.insert(balance);
     }
 
 }

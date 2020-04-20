@@ -76,7 +76,16 @@ public class TradeController {
         }
         PageInfo<TradeRecord> pageInfo = tradeRecordSV.selectByCondition(tradeRecordQry, pageNum, pageSize, startDate, endDate);
         Response response = GateWayUtil.returnSuccessResponse("查询成功");
-        response.setRows(pageInfo.getList());
+        List<TradeRecord> list = pageInfo.getList();
+        for (TradeRecord tradeRecord : list) {
+            if (tradeRecord.getBuyPrice() != null && tradeRecord.getBuyPrice() > 0) {
+                tradeRecord.setBuyPrice(tradeRecord.getBuyPrice() / 10);
+            }
+            if (tradeRecord.getSellPrice() != null && tradeRecord.getSellPrice() > 0) {
+                tradeRecord.setSellPrice(tradeRecord.getSellPrice() / 10);
+            }
+        }
+        response.setRows(list);
         response.setTotal(pageInfo.getTotal());
         return response;
     }

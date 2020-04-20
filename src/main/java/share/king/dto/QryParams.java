@@ -3,7 +3,7 @@ package share.king.dto;
 public class QryParams {
     private int pageNum;
     private int pageSize;
-    private Integer UserId;
+    private Integer userId;
     private String asc;
     private String startDate;
     private String endDate;
@@ -25,11 +25,11 @@ public class QryParams {
     }
 
     public Integer getUserId() {
-        return UserId;
+        return userId;
     }
 
     public void setUserId(Integer userId) {
-        UserId = userId;
+        this.userId = userId;
     }
 
     public String getAsc() {
@@ -62,7 +62,7 @@ public class QryParams {
         return "QryParams{" +
                 "pageNum=" + pageNum +
                 ", pageSize=" + pageSize +
-                ", UserId=" + UserId +
+                ", UserId=" + userId +
                 ", asc='" + asc + '\'' +
                 ", startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +

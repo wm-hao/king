@@ -1,6 +1,27 @@
 package share.king.util;
 
 public class Common {
+
+    public enum BalanceType {
+        ORDINARY(1, "普通");
+
+        private Integer type;
+        private String desc;
+
+        BalanceType(Integer type, String desc) {
+            this.type = type;
+            this.desc = desc;
+        }
+
+        public Integer getType() {
+            return type;
+        }
+
+        public String getDesc() {
+            return desc;
+        }
+    }
+
     public enum StatusCode {
         SUCCESS(1, "成功"),
         FAIL(0, "失败");
